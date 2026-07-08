@@ -20,7 +20,7 @@ class MainLayoutPage extends StatelessWidget {
               flex: 1,
               child: _buildMapPane(),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 4),
             Expanded(
               flex: 1,
               child: Row(
@@ -28,7 +28,6 @@ class MainLayoutPage extends StatelessWidget {
                   Expanded(
                     child: _buildOptionCard(
                       context: context,
-                      title: 'Find a Department',
                       icon: Icons.search_rounded,
                       buttonLabel: 'Search by Department',
                       onPressed: () {
@@ -42,11 +41,10 @@ class MainLayoutPage extends StatelessWidget {
                       },
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 4),
                   Expanded(
                     child: _buildOptionCard(
                       context: context,
-                      title: 'Explore the Mall',
                       icon: Icons.map_outlined,
                       buttonLabel: 'Search by Map',
                       onPressed: () {
@@ -84,7 +82,7 @@ class MainLayoutPage extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -98,7 +96,7 @@ class MainLayoutPage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               const Text(
-                'Placeholder live map for mall navigation.',
+                'Placeholder.',
                 style: TextStyle(fontSize: 15, color: Colors.black87),
               ),
               const Spacer(),
@@ -138,48 +136,33 @@ class MainLayoutPage extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionCard({
-    required BuildContext context,
-    required String title,
-    required IconData icon,
-    required String buttonLabel,
-    required VoidCallback onPressed,
-  }) {
-    // Reusable card widget used for the two main actions on the home screen.
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40, color: const Color(0xFF1565C0)),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF0D47A1),
-              ),
+Widget _buildOptionCard({
+  required BuildContext context,
+  required IconData icon,
+  required String buttonLabel,
+  required VoidCallback onPressed,
+}) {
+  return Card(
+    elevation: 3,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(18),
+      child: Center(
+        child: FilledButton.icon(
+          onPressed: onPressed,
+          icon: Icon(icon),
+          label: Text(buttonLabel),
+          style: FilledButton.styleFrom(
+            backgroundColor: const Color(0xFF1565C0),
+            minimumSize: const Size(double.infinity, 56),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
             ),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: onPressed,
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF1565C0),
-                minimumSize: const Size(double.infinity, 48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-              ),
-              child: Text(buttonLabel),
-            ),
-          ],
+          ),
         ),
       ),
-    );
-  }
-}
+    ),
+  );
+}}
