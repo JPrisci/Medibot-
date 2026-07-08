@@ -512,8 +512,8 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                           Positioned.fill(
                             child: Center(
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.22,
-                                height: MediaQuery.of(context).size.height * 0.22,
+                                width: MediaQuery.of(context).size.width * 0.32,
+                                height: MediaQuery.of(context).size.height * 0.32,
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   color: Colors.white.withValues(alpha: 0.97),
@@ -608,76 +608,78 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF1565C0),
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
-                                child: Row(
-                                  children: const [
-                                    Icon(Icons.info_outline_rounded, color: Colors.white),
-                                    SizedBox(width: 8),
-                                    Expanded(
-                                      child: Text(
-                                        'Choose a destination, then press Confirm Route.',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF1565C0),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  child: Row(
+                                    children: const [
+                                      Icon(Icons.info_outline_rounded, color: Colors.white),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          'Choose a destination, then press Confirm Route.',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 16),
-                              const Text(
-                                'Route Details',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF0D47A1),
+                                const SizedBox(height: 16),
+                                const Text(
+                                  'Route Details',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF0D47A1),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 16),
-                              _buildInfoRow('Current Location', _currentLocation),
-                              const SizedBox(height: 12),
-                              _buildInfoRow('Chosen Department', _chosenLocation),
-                              const SizedBox(height: 12),
-                              _buildInfoRow('Estimated Travel Time', _travelTime),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Floor Status',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF0D47A1),
+                                const SizedBox(height: 16),
+                                _buildInfoRow('Current Location', _currentLocation),
+                                const SizedBox(height: 12),
+                                _buildInfoRow('Chosen Department', _chosenLocation),
+                                const SizedBox(height: 12),
+                                _buildInfoRow('Estimated Travel Time', _travelTime),
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Floor Status',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF0D47A1),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 12),
-                              _buildInfoRow('NaviBots on floor', floorStats['total'].toString()),
-                              const SizedBox(height: 8),
-                              _buildInfoRow('Available NaviBots', floorStats['available'].toString()),
-                              const SizedBox(height: 8),
-                              _buildInfoRow('NaviBots In Use', floorStats['inUse'].toString()),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Key',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF0D47A1),
+                                const SizedBox(height: 12),
+                                _buildInfoRow('NaviBots on floor', floorStats['total'].toString()),
+                                const SizedBox(height: 8),
+                                _buildInfoRow('Available NaviBots', floorStats['available'].toString()),
+                                const SizedBox(height: 8),
+                                _buildInfoRow('NaviBots In Use', floorStats['inUse'].toString()),
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Key',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF0D47A1),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              _buildLegendRow(Icons.circle, 'Available', Colors.green),
-                              const SizedBox(height: 6),
-                              _buildLegendRow(Icons.circle, 'In Use', Colors.red),
-                            ],
+                                const SizedBox(height: 8),
+                                _buildLegendRow(Icons.circle, 'Available', Colors.green),
+                                const SizedBox(height: 6),
+                                _buildLegendRow(Icons.circle, 'In Use', Colors.red),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(height: 12),
