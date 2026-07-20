@@ -1,15 +1,50 @@
-// Summary shown at the end of a session with basic metrics.
 import 'package:flutter/material.dart';
 
 import '../session_tracker.dart';
+import 'csv.dart';
 import 'loading_page.dart';
+import 'session_id.dart';
+import 'session_record_store.dart';
+import 'admin_page.dart';
 
-class SessionSummaryPage extends StatelessWidget {
+class SessionSummaryPage extends StatefulWidget {
   const SessionSummaryPage({super.key});
 
   @override
+  State<SessionSummaryPage> createState() => _SessionSummaryPageState();
+}
+
+class _SessionSummaryPageState extends State<SessionSummaryPage> {
+  bool _exporting = false;
+  String? _exportError;
+
+  @override
+  void initState() {
+    super.initState();
+    // Session just ended -> export as soon as this screen mounts.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _recordSession());
+  }
+
+  Future<void> _recordSession() async {
+  setState(() => _exporting = true);
+  try {
+    final tracker = SessionTracker.instance;
+    final sessionId = await SessionIdProvider.nextId();
+
+    await SessionRecordStore.addRecord({
+      'session_id': sessionId,
+      'click_count': tracker.clickCount.value,
+      'elapsed_time': tracker.elapsedText,
+    });
+  } catch (e) {
+    _exportError = e.toString();
+  } finally {
+    if (mounted) setState(() => _exporting = false);
+  }
+}
+
+  @override
   Widget build(BuildContext context) {
-    // Gets metrics.
     final clickCount = SessionTracker.instance.clickCount.value;
     final elapsedText = SessionTracker.instance.elapsedText;
 
@@ -38,19 +73,20 @@ class SessionSummaryPage extends StatelessWidget {
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Color(0xFF0D47A1)),
                     ),
                     const SizedBox(height: 16),
-                    Text(
-                      'Total clicks: $clickCount',
-                      style: const TextStyle(fontSize: 20),
-                    ),
+                    Text('Total clicks: $clickCount', style: const TextStyle(fontSize: 20)),
                     const SizedBox(height: 10),
-                    Text(
-                      'Time taken: $elapsedText',
-                      style: const TextStyle(fontSize: 20),
-                    ),
+                    Text('Time taken: $elapsedText', style: const TextStyle(fontSize: 20)),
+                    const SizedBox(height: 12),
+                    if (_exporting)
+                      const Text('Saving CSV…', style: TextStyle(fontSize: 14, color: Colors.grey))
+                    else if (_exportError != null)
+                      Text('CSV export failed: $_exportError',
+                          style: const TextStyle(fontSize: 13, color: Colors.red))
+                    else
+                      const Text('CSV saved ✓', style: TextStyle(fontSize: 14, color: Colors.green)),
                     const SizedBox(height: 24),
                     FilledButton.icon(
                       onPressed: () {
-                        // Reset button to navigate back to screen.
                         SessionTracker.instance.reset();
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (_) => const LoadingPage()),
@@ -68,6 +104,16 @@ class SessionSummaryPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       ),
                     ),
+                  const SizedBox(height: 12),
+                  TextButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const AdminPage()),
+                      );
+                    },
+                    icon: const Icon(Icons.admin_panel_settings_outlined),
+                    label: const Text('Admin'),
+                  ),
                   ],
                 ),
               ),
@@ -78,3 +124,4 @@ class SessionSummaryPage extends StatelessWidget {
     );
   }
 }
+
