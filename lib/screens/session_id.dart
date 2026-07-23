@@ -12,4 +12,9 @@ class SessionIdProvider {
     await prefs.setInt(_key, next);
     return next;
   }
+
+  static Future<void> reset() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove(_key);
+}
 }

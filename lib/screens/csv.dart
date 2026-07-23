@@ -20,7 +20,7 @@ class Csv {
 
     final bytes = Uint8List.fromList(utf8.encode(buffer.toString()));
 
-    await FileSaver.instance.saveFile(
+    await FileSaver.instance.saveAs(
       name: fileName,
       bytes: bytes,
       ext: 'csv',

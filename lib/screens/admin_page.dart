@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'csv.dart';
 import 'session_record_store.dart';
+import 'session_id.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -106,6 +107,47 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
+  Future<void> _resetAllData() async {
+    // Confirm first — this is destructive and can't be undone.
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Reset all data?'),
+        content: const Text(
+          'This will permanently delete all recorded sessions and reset the data, continue?'
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text('Reset'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    setState(() {
+      _exporting = true;
+      _statusMessage = null;
+    });
+    try {
+      await SessionRecordStore.clear();
+      await SessionIdProvider.reset();
+      setState(() => _statusMessage = 'All data reset. Next session will be #1.');
+    } catch (e) {
+      setState(() => _statusMessage = 'Reset failed: $e');
+    } finally {
+      if (mounted) setState(() => _exporting = false);
+    }
+  }
+
+
   Widget _buildAdminPanel() {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -123,6 +165,15 @@ class _AdminPageState extends State<AdminPage> {
           const SizedBox(height: 16),
           Text(_statusMessage!, textAlign: TextAlign.center),
         ],
+        const SizedBox(height: 12),
+        OutlinedButton.icon(
+          onPressed: _exporting ? null : _resetAllData,
+          icon: const Icon(Icons.delete_forever_rounded, color: Colors.red),
+          label: const Text('Reset All Data', style: TextStyle(color: Colors.red)),
+          style: OutlinedButton.styleFrom(
+            side: const BorderSide(color: Colors.red),
+          ),
+        ),
       ],
     );
   }
