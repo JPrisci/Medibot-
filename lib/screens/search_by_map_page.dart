@@ -12,68 +12,70 @@ class SearchByMapPage extends StatefulWidget {
   State<SearchByMapPage> createState() => _SearchByMapPageState();
 }
 
-// Default settings for floor 1, before any selection is made, this is later updated upon click.
+// Default settings for the ground floor, before any selection is made, this is later updated upon click.
 class _SearchByMapPageState extends State<SearchByMapPage> {
   final String _currentLocation = 'Main Entrance';
   late String _chosenLocation;
   late String _travelTime;
-  String _selectedFloor = 'Floor 1';
+  String _selectedFloor = 'G-G';
   bool _routeSelected = false;
   bool _routeConfirmed = false;
   bool _confirmPromptVisible = false;
 
   // Placeholder values
   final Map<String, Map<String, int>> _floorStatus = {
-    'Floor 1': {'total': 3, 'available': 2, 'inUse': 1},
-    'Floor 2': {'total': 3, 'available': 1, 'inUse': 2},
+    'G-G': {'total': 3, 'available': 2, 'inUse': 1},
+    'G-1': {'total': 3, 'available': 1, 'inUse': 2},
+    'G-2': {'total': 3, 'available': 2, 'inUse': 1},
+    'G-3': {'total': 3, 'available': 1, 'inUse': 2},
   };
 
 // Placeholder values - 'department store'.
   final Map<String, Map<String, dynamic>> _departmentDetails = {
     'Fashion': {
-      'floor': 'Floor 1',
+      'floor': 'G-G',
       'travelTime': '5 min',
       'color': Colors.purple.shade400,
       'icon': Icons.checkroom_rounded,
       'pos': const Offset(0.08, 0.08)
     },
     'Electronics': {
-      'floor': 'Floor 1',
+      'floor': 'G-G',
       'travelTime': '8 min',
       'color': Colors.teal.shade600,
       'icon': Icons.devices_rounded,
       'pos': const Offset(0.92, 0.08)
     },
     'Food Court': {
-      'floor': 'Floor 1',
+      'floor': 'G-G',
       'travelTime': '12 min',
       'color': Colors.orange.shade600,
       'icon': Icons.restaurant_rounded,
       'pos': const Offset(0.08, 0.92)
     },
     'Beauty': {
-      'floor': 'Floor 1',
+      'floor': 'G-G',
       'travelTime': '4 min',
       'color': Colors.pink.shade400,
       'icon': Icons.face_rounded,
       'pos': const Offset(0.92, 0.92)
     },
     'Books & Media': {
-      'floor': 'Floor 2',
+      'floor': 'G-1',
       'travelTime': '7 min',
       'color': Colors.blue.shade500,
       'icon': Icons.menu_book_rounded,
       'pos': const Offset(0.08, 0.08)
     },
     'Home Goods': {
-      'floor': 'Floor 2',
+      'floor': 'G-1',
       'travelTime': '6 min',
       'color': Colors.green.shade600,
       'icon': Icons.home_rounded,
       'pos': const Offset(0.92, 0.08)
     },
     'Sports': {
-      'floor': 'Floor 2',
+      'floor': 'G-1',
       'travelTime': '9 min',
       // Use app primary blue for consistency with ward_page
       'color': const Color(0xFF1565C0),
@@ -81,7 +83,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       'pos': const Offset(0.08, 0.92)
     },
     "Children's": {
-      'floor': 'Floor 2',
+      'floor': 'G-1',
       'travelTime': '3 min',
       'color': Colors.cyan.shade600,
       'icon': Icons.child_care_rounded,
@@ -98,7 +100,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       _chosenLocation = 'Waiting for selection';
       _travelTime = 'N/A';
       _routeSelected = false;
-      _selectedFloor = 'Floor 1';
+      _selectedFloor = 'G-G';
     }
   }
 
@@ -202,13 +204,17 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
             children: [
               Icon(icon, color: selected ? Colors.white : color, size: 22),
               const SizedBox(height: 4),
-              Text(
-                label,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: selected ? Colors.white : color,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11,
+              Flexible(
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: selected ? Colors.white : color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                  ),
                 ),
               ),
             ],
@@ -256,7 +262,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       children: [
                         Positioned.fill(
                           child: Padding(
-                            padding: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(12),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -272,7 +278,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                                 const SizedBox(height: 8),
                                 Wrap(
                                   spacing: 8,
-                                  children: ['Floor 1', 'Floor 2'].map((floor) {
+                                  children: ['G-G', 'G-1', 'G-2', 'G-3'].map((floor) {
                                     final isSelected = floor == _selectedFloor;
                                     return ChoiceChip(
                                       label: Text(floor),
@@ -299,8 +305,8 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                                       borderRadius: BorderRadius.circular(24),
                                       border: Border.all(color: const Color(0xFF1565C0).withValues(alpha: 0.25), width: 2),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
                                       child: Column(
                                         children: [
                                           Expanded(
@@ -316,30 +322,46 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                                                       // decorative inner area
                                                       Positioned.fill(
                                                         child: Padding(
-                                                          padding: const EdgeInsets.all(24),
+                                                          padding: const EdgeInsets.all(8),
                                                           child: Container(
                                                             decoration: BoxDecoration(
                                                               borderRadius: BorderRadius.circular(18),
                                                               border: Border.all(color: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.15), width: 2),
                                                             ),
-                                                            child: Center(
-                                                              child: Column(
-                                                                mainAxisSize: MainAxisSize.min,
-                                                                children: [
-                                                                  Icon(Icons.stairs_rounded, color: const Color(0xFF1565C0), size: 30),
-                                                                  const SizedBox(height: 8),
-                                                                  Text(
-                                                                    _selectedFloor == 'Floor 1' ? 'Main level' : 'Upper level',
-                                                                    style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF0D47A1)),
-                                                                  ),
-                                                                ],
+                                                            child: ClipRRect(
+                                                              borderRadius: BorderRadius.circular(18),
+                                                              child: InteractiveViewer(
+                                                                boundaryMargin: const EdgeInsets.all(20),
+                                                                minScale: 0.5,
+                                                                maxScale: 4.0,
+                                                                child: Image.asset(
+                                                                  'assets/images/$_selectedFloor.png',
+                                                                  fit: BoxFit.contain,
+                                                                  width: double.infinity,
+                                                                  height: double.infinity,
+                                                                  errorBuilder: (context, error, stackTrace) {
+                                                                    return Center(
+                                                                      child: Column(
+                                                                        mainAxisSize: MainAxisSize.min,
+                                                                        children: [
+                                                                          const Icon(Icons.image_not_supported_rounded, color: Color(0xFF1565C0), size: 30),
+                                                                          const SizedBox(height: 8),
+                                                                          Text(
+                                                                            'Map: $_selectedFloor',
+                                                                            style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF0D47A1)),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                       // Floor 1 markers
-                                                      if (_selectedFloor == 'Floor 1') ...[
+                                                      if (_selectedFloor == 'G-G') ...[
                                                         Align(
                                                           alignment: Alignment(-0.9, -0.9),
                                                           child: Padding(
@@ -422,8 +444,8 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                                                             ),
                                                           ),
                                                         ),
-                                                      ] else ...[
-                                                        // Floor 2 markers.
+                                                      ] else if (_selectedFloor == 'G-1') ...[
+                                                        // G-1 markers.
                                                         // Books & Medi.
                                                         Align(
                                                           alignment: Alignment(-0.9, -0.9),
