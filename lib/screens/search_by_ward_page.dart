@@ -68,18 +68,23 @@ class SearchByWardPage extends StatelessWidget {
                       childAspectRatio: 1.3,
                       physics: const NeverScrollableScrollPhysics(),
                       children: departments.map((department) {
+                        final enabled = department == departments.first;
                         return FilledButton(
-                          onPressed: () {
-                            // Track selection and push map screen with the department pre-selected.
-                            SessionTracker.instance.recordClick(department);
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => SearchByMapPage(selectedWard: department),
-                              ),
-                            );
-                          },
+                          onPressed: enabled
+                              ? () {
+                                  // The first prototype option opens the predefined active route.
+                                  SessionTracker.instance.recordClick(department);
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => SearchByMapPage(selectedWard: department),
+                                    ),
+                                  );
+                                }
+                              : null,
                           style: FilledButton.styleFrom(
                             backgroundColor: const Color(0xFF1565C0),
+                            disabledBackgroundColor: Colors.grey.shade300,
+                            disabledForegroundColor: Colors.grey.shade600,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
