@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../session_tracker.dart';
+import 'session_summary_page.dart';
 
 /// Displays the floor plans used in the user-testing prototype.
 class SearchByMapPage extends StatefulWidget {
@@ -54,6 +55,54 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       SessionTracker.instance.recordClick('Room 2.31 route');
       setState(() => _showRoute = true);
     }
+  }
+
+  Future<void> _confirmBooking() async {
+    if (!_showRoute) return;
+    final name = SessionTracker.instance.participantName ?? 'Guest';
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirm booking'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Booking for $name', style: const TextStyle(fontWeight: FontWeight.w700)),
+            const SizedBox(height: 16),
+            const Text('Route', style: TextStyle(fontWeight: FontWeight.w700)),
+            const SizedBox(height: 8),
+            const Text('Start: Room 1.05, G-1'),
+            const SizedBox(height: 4),
+            const Text('Destination: Room 2.31, G-2'),
+            const SizedBox(height: 16),
+            const Text('Call NaviBot?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+    SessionTracker.instance.recordClick('Booking confirmed');
+    _finishSession();
+  }
+
+  void _finishSession() {
+    SessionTracker.instance.recordClick('Session complete');
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const SessionSummaryPage()),
+    );
   }
 
   String get _mapAsset => 'assets/images/$_selectedFloor.png';
@@ -209,6 +258,19 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: _showRoute ? _confirmBooking : null,
+                icon: const Icon(Icons.calendar_month_rounded),
+                label: const Text('Confirm booking'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: _primaryBlue,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: _showRoute ? _cancelRoute : null,
                 icon: const Icon(Icons.cancel_outlined),
@@ -303,6 +365,23 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                           ),
                         ),
                       ),
+                    if (_selectedFloor == 'G-1')
+                      Positioned(
+                        // The route starts at room 1.05: (41.7%, 20%) of G-1.
+                        left: (mapWidth * 0.417) - 12,
+                        top: (mapHeight * 0.200) - 12,
+                        child: Semantics(
+                          label: 'Start: room 1.05',
+                          child: const Tooltip(
+                            message: 'Start: room 1.05',
+                            child: Icon(
+                              Icons.trip_origin_rounded,
+                              color: _primaryBlue,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      ),
                     if (_selectedFloor == 'G-2')
                       Positioned(
                         // The route ends at room 2.31: (69%, 66.2%) of G-2.
@@ -321,8 +400,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                               key: const ValueKey('room-2.31-destination'),
                               onPressed: _toggleDestinationRoute,
                               style: IconButton.styleFrom(
-                                backgroundColor:
-                                    _showRoute ? Colors.green.shade700 : _primaryBlue,
+                                backgroundColor: _showRoute ? Colors.green.shade700 : _primaryBlue,
                                 minimumSize: const Size(32, 32),
                                 maximumSize: const Size(32, 32),
                                 padding: EdgeInsets.zero,
@@ -360,7 +438,7 @@ class _RoutePainter extends CustomPainter {
             Offset(0.227, 0.200),
             Offset(0.227, 0.659),
             Offset(0.452, 0.659),
-            Offset(0.452, 0.914),
+            Offset(0.452, 0.930),
           ]
         : const [
             Offset(0.452, 0.924),
@@ -382,18 +460,25 @@ class _RoutePainter extends CustomPainter {
     }
     canvas.drawPath(path, paint);
 
-    if (floor == 'G-2') {
-      final end = scaledPoints.last;
-      final arrowPaint = Paint()
-        ..color = paint.color
-        ..style = PaintingStyle.fill;
-      final arrow = Path()
-        ..moveTo(end.dx, end.dy)
-        ..lineTo(end.dx - 16, end.dy - 12)
-        ..lineTo(end.dx - 16, end.dy + 12)
-        ..close();
-      canvas.drawPath(arrow, arrowPaint);
-    }
+    final end = scaledPoints.last;
+    final previous = scaledPoints[scaledPoints.length - 2];
+    final direction = (end - previous) / (end - previous).distance;
+    final perpendicular = Offset(-direction.dy, direction.dx);
+    final arrowPaint = Paint()
+      ..color = paint.color
+      ..style = PaintingStyle.fill;
+    final arrow = Path()
+      ..moveTo(end.dx, end.dy)
+      ..lineTo(
+        end.dx - (direction.dx * 16) + (perpendicular.dx * 12),
+        end.dy - (direction.dy * 16) + (perpendicular.dy * 12),
+      )
+      ..lineTo(
+        end.dx - (direction.dx * 16) - (perpendicular.dx * 12),
+        end.dy - (direction.dy * 16) - (perpendicular.dy * 12),
+      )
+      ..close();
+    canvas.drawPath(arrow, arrowPaint);
   }
 
   @override

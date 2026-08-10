@@ -11,6 +11,7 @@ class SessionTracker {
 
   final ValueNotifier<int> clickCount = ValueNotifier<int>(0);
   final ValueNotifier<Duration> elapsed = ValueNotifier<Duration>(Duration.zero);
+  String? participantName;
   Timer? _timer;
   bool _running = false;
 
@@ -37,6 +38,7 @@ class SessionTracker {
     stop();
     clickCount.value = 0;
     elapsed.value = Duration.zero;
+    participantName = null;
   }
 
   void recordClick([String? source]) {

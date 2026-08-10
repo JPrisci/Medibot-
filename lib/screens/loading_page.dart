@@ -15,6 +15,7 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
   // 1 = intro, 2 = main app
   int _screenStage = 1;
+  final _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -24,12 +25,22 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void _startSession() {
+    final name = _nameController.text.trim();
+    if (name.isEmpty) return;
+
     // Starts session timer on start, moves to app.
+    SessionTracker.instance.participantName = name;
     SessionTracker.instance.recordClick('Start');
     SessionTracker.instance.start();
     setState(() {
       _screenStage = 2;
     });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,13 +83,29 @@ class _LoadingPageState extends State<LoadingPage> {
             ),
             const SizedBox(height: 12),
             const Text(
-              'Tap start to begin navigating',
+              'Enter your name to begin navigating',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: 280,
+              child: TextField(
+                controller: _nameController,
+                textCapitalization: TextCapitalization.words,
+                textInputAction: TextInputAction.done,
+                onChanged: (_) => setState(() {}),
+                onSubmitted: (_) => _startSession(),
+                decoration: const InputDecoration(
+                  labelText: 'Your name',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person_outline_rounded),
+                ),
+              ),
+            ),
             const SizedBox(height: 28),
             FilledButton.icon(
-              onPressed: _startSession,
+              onPressed: _nameController.text.trim().isEmpty ? null : _startSession,
               icon: const Icon(Icons.play_arrow_rounded),
               label: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -86,6 +113,7 @@ class _LoadingPageState extends State<LoadingPage> {
               ),
               style: FilledButton.styleFrom(
                 backgroundColor: const Color(0xFF1565C0),
+                disabledBackgroundColor: Colors.grey.shade300,
                 minimumSize: const Size(180, 56),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
