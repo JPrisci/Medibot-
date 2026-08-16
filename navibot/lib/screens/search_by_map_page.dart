@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import '../session_tracker.dart';
 import 'session_summary_page.dart';
@@ -71,10 +69,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Booking for $name',
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            Text('Booking for $name', style: const TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 16),
             const Text('Route', style: TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
@@ -99,52 +94,8 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     );
 
     if (confirmed != true || !mounted) return;
-
     SessionTracker.instance.recordClick('Booking confirmed');
-
-    final started = await _startRobotRoute();
-
-    if (!mounted) return;
-
-    if (!started) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'NaviBot could not start the robot route. Please try again.',
-          ),
-        ),
-      );
-      return;
-    }
-
-    SessionTracker.instance.recordClick('Robot route started');
     _finishSession();
-  }
-
-  Future<bool> _startRobotRoute() async {
-    try {
-      final response = await http
-          .post(
-            Uri.parse('http://127.0.0.1:8082/route/start'),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode({'destination': 'ELEVATOR_2'}),
-          )
-          .timeout(const Duration(seconds: 5));
-
-      if (response.statusCode == 200) {
-        return true;
-      }
-
-      debugPrint(
-        'Route API rejected request: '
-        '${response.statusCode} ${response.body}',
-      );
-
-      return false;
-    } catch (error) {
-      debugPrint('Route API error: $error');
-      return false;
-    }
   }
 
   void _finishSession() {
@@ -163,10 +114,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'Search by Map',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Search by Map', style: TextStyle(color: Colors.white)),
         backgroundColor: _primaryBlue,
         leading: IconButton(
           color: Colors.white,
@@ -196,9 +144,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Select a floor or tap the destination marker to toggle its route.',
-                    ),
+                    const Text('Select a floor or tap the destination marker to toggle its route.'),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 8,
@@ -287,20 +233,11 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    _buildInfoRow(
-                      'NaviBots on floor',
-                      floorStats['total'].toString(),
-                    ),
+                    _buildInfoRow('NaviBots on floor', floorStats['total'].toString()),
                     const SizedBox(height: 8),
-                    _buildInfoRow(
-                      'Available NaviBots',
-                      floorStats['available'].toString(),
-                    ),
+                    _buildInfoRow('Available NaviBots', floorStats['available'].toString()),
                     const SizedBox(height: 8),
-                    _buildInfoRow(
-                      'NaviBots In Use',
-                      floorStats['inUse'].toString(),
-                    ),
+                    _buildInfoRow('NaviBots In Use', floorStats['inUse'].toString()),
                     const SizedBox(height: 20),
                     const Text(
                       'Key',
@@ -355,13 +292,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            color: _primaryBlue,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.w600, color: _primaryBlue)),
         const SizedBox(height: 6),
         Text(value, style: const TextStyle(fontSize: 15)),
       ],
@@ -393,8 +324,8 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
         color: retired
             ? Colors.grey.shade600
             : selected
-            ? Colors.white
-            : _primaryBlue,
+                ? Colors.white
+                : _primaryBlue,
         fontWeight: FontWeight.w600,
       ),
     );
@@ -405,10 +336,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       builder: (context, constraints) {
         final availableWidth = constraints.maxWidth;
         final availableHeight = constraints.maxHeight;
-        final mapWidth = math.min(
-          availableWidth,
-          availableHeight * _mapAspectRatio,
-        );
+        final mapWidth = math.min(availableWidth, availableHeight * _mapAspectRatio);
         final mapHeight = mapWidth / _mapAspectRatio;
         final mapLeft = (availableWidth - mapWidth) / 2;
         final mapTop = (availableHeight - mapHeight) / 2;
@@ -427,11 +355,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.asset(
-                      _mapAsset,
-                      key: ValueKey(_mapAsset),
-                      fit: BoxFit.fill,
-                    ),
+                    Image.asset(_mapAsset, key: ValueKey(_mapAsset), fit: BoxFit.fill),
                     if (_showRoute)
                       Positioned.fill(
                         child: IgnorePointer(
@@ -476,17 +400,13 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                               key: const ValueKey('room-2.31-destination'),
                               onPressed: _toggleDestinationRoute,
                               style: IconButton.styleFrom(
-                                backgroundColor: _showRoute
-                                    ? Colors.green.shade700
-                                    : _primaryBlue,
+                                backgroundColor: _showRoute ? Colors.green.shade700 : _primaryBlue,
                                 minimumSize: const Size(32, 32),
                                 maximumSize: const Size(32, 32),
                                 padding: EdgeInsets.zero,
                               ),
                               icon: Icon(
-                                _showRoute
-                                    ? Icons.cancel_rounded
-                                    : Icons.flag_rounded,
+                                _showRoute ? Icons.cancel_rounded : Icons.flag_rounded,
                                 size: 16,
                               ),
                             ),
@@ -562,6 +482,5 @@ class _RoutePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _RoutePainter oldDelegate) =>
-      oldDelegate.floor != floor;
+  bool shouldRepaint(covariant _RoutePainter oldDelegate) => oldDelegate.floor != floor;
 }
