@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../session_tracker.dart';
 import 'session_summary_page.dart';
@@ -109,7 +109,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
 
     try {
       await _publishRouteRequest(userId);
-    } on HttpException catch (error) {
+    } on _RouteApiException catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -117,7 +117,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
         ),
       );
       return;
-    } on SocketException {
+    } on http.ClientException {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Could not connect to the route API.')),
@@ -131,21 +131,13 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
 
   /// Sends the confirmed request as strings that the route consumer can fetch.
   Future<void> _publishRouteRequest(String userId) async {
-    final client = HttpClient();
-    try {
-      final request = await client.postUrl(Uri.parse(_routeApiUrl));
-      request.headers.contentType = ContentType.json;
-      request.write(
-        jsonEncode({'destination': _destination, 'user_id': userId}),
-      );
-
-      final response = await request.close();
-      if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw HttpException('API returned HTTP ${response.statusCode}');
-      }
-      await response.drain();
-    } finally {
-      client.close(force: true);
+    final response = await http.post(
+      Uri.parse(_routeApiUrl),
+      headers: const {'Content-Type': 'application/json'},
+      body: jsonEncode({'destination': _destination, 'user_id': userId}),
+    );
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw _RouteApiException('API returned HTTP ${response.statusCode}');
     }
   }
 
@@ -504,6 +496,12 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       },
     );
   }
+}
+
+class _RouteApiException implements Exception {
+  const _RouteApiException(this.message);
+
+  final String message;
 }
 
 /// Draws the fixed user-testing route in the floor plan's own coordinate space.
