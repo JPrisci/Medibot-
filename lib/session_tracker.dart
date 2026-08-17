@@ -10,8 +10,15 @@ class SessionTracker {
   static final SessionTracker instance = SessionTracker._();
 
   final ValueNotifier<int> clickCount = ValueNotifier<int>(0);
-  final ValueNotifier<Duration> elapsed = ValueNotifier<Duration>(Duration.zero);
-  String? participantName;
+  final ValueNotifier<Duration> elapsed = ValueNotifier<Duration>(
+    Duration.zero,
+  );
+
+  /// The identifier entered on the session start screen.
+  ///
+  /// This is deliberately named `userId` so outgoing API payloads use the
+  /// agreed `user_id` field rather than the older UI-specific "name" wording.
+  String? userId;
   Timer? _timer;
   bool _running = false;
 
@@ -38,7 +45,7 @@ class SessionTracker {
     stop();
     clickCount.value = 0;
     elapsed.value = Duration.zero;
-    participantName = null;
+    userId = null;
   }
 
   void recordClick([String? source]) {
