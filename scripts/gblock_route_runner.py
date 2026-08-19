@@ -3082,7 +3082,7 @@ def main():
             node.wait_for_servers()
             node.start_phone_checkpoint_server(port=args.phone_port)
 
-        node.run_route(
+        route_success = node.run_route(
             destination=args.destination,
             dry_run=not args.run
         )
@@ -3090,10 +3090,12 @@ def main():
     except KeyboardInterrupt:
         node.get_logger().warn("Interrupted by user.")
         node.stop()
+        route_success = False
 
     except Exception as e:
         node.get_logger().error(str(e))
         node.stop()
+        route_success = False
 
     finally:
         node.stop()
@@ -3101,6 +3103,8 @@ def main():
         node.destroy_node()
         rclpy.shutdown()
 
+    return 0 if route_success else 1
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
