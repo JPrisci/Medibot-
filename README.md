@@ -36,7 +36,6 @@ The included API stores requests in memory while it is running. It provides:
 In a PowerShell terminal, start the API and leave the terminal open:
 
 ```powershell
-cd C:\Users\jacku\Capstone\medibot
 py route_api.py
 ```
 
