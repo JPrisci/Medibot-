@@ -12,6 +12,19 @@
 .swiftpm/
 migrate_working_dir/
 
+# Python files used by the robot face screens
+__pycache__/
+*.pyo
+*.pyd
+.venv/
+venv/
+.pytest_cache/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
 # IntelliJ related
 *.iml
 *.ipr

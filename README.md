@@ -1,124 +1,47 @@
-# medibot
+# MediBot Flutter App
 
-A new Flutter project.
+This tablet app lets a visitor choose a route and confirm a booking. It then
+sends the route request to the MediBot Coordinator.
 
-## Getting Started
+## What Flutter sends
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Route request API
-
-When the user confirms a booking, the app sends this request to
-`POST /route-requests`:
+After the visitor enters their name and confirms the route, the app sends:
 
 ```json
-{"destination":"DIGITAL_LIBRARY","user_id":"[Entered by user at the start of kiosk session]"}
+{
+  "destination": "DIGITAL_LIBRARY",
+  "user_id": "visitor_001"
+}
 ```
 
-The included API stores requests in memory while it is running. It provides:
-
-- `POST /route-requests` to submit a route request.
-- `GET /route-requests` to retrieve all requests received since the API started.
-- `GET /route-requests/latest` to retrieve the newest request.
-
-### Start and test the API
-
-In a PowerShell terminal, start the API and leave the terminal open:
-
-```powershell
-py route_api.py
-```
-
-It should print:
+to:
 
 ```text
-Route API listening on http://0.0.0.0:8000/route-requests
+POST /route-requests
 ```
 
-To test the API without the Flutter app, run this in another PowerShell
-terminal:
+The request is in `lib/screens/search_by_map_page.dart`. The name entered on
+the start screen is stored as `SessionTracker.userId` and sent as `user_id`.
+
+## Building for the tablet
+
+The tablet must use the Coordinator Pi address, not `localhost`.
 
 ```powershell
-Invoke-RestMethod `
-  -Method Post `
-  -Uri http://localhost:8000/route-requests `
-  -ContentType 'application/json' `
-  -Body '{"destination":"DIGITAL_LIBRARY","user_id":"test-user"}'
-
-Invoke-RestMethod http://localhost:8000/route-requests/latest
+flutter build apk --release `
+  --dart-define=ROUTE_API_URL=http://<COORDINATOR_PI_IP>:8000/route-requests
 ```
 
-A successful request is logged by the API with status `201`, for example:
+Install the APK on the tablet. The tablet and Coordinator Pi must be on the
+same Wi-Fi network. The Pi needs a stable IP address.
 
-```text
-127.0.0.1 - "POST /route-requests HTTP/1.1" 201 -
-```
+## Local testing
 
-### Confirming a booking in the app
-
-The request is only sent after a route is active and the user presses both
-confirmation buttons:
-
-1. Select the Room 2.31 destination marker to make the route active.
-2. Press **Confirm booking**.
-3. In the dialog, press **Confirm**.
-
-The app returns to the session summary after a successful `201` response.
-
-### Run on Windows desktop
-
-When the Flutter app and API run on the same Windows computer, the default
-`localhost` API address works:
+`route_api.py` is a simple local test server for testing the Flutter booking
+request without the full robot system:
 
 ```powershell
-flutter run -d windows
+python route_api.py
 ```
 
-### Run on an Android emulator
-
-`localhost` inside an Android emulator refers to the emulator, not the host
-computer. Use Android's special host address, `10.0.2.2`:
-
-```powershell
-flutter run --dart-define=ROUTE_API_URL=http://10.0.2.2:8000/route-requests
-```
-
-The Android manifest permits local HTTP connections for this prototype. Fully
-stop and restart the Flutter app after changing the `--dart-define` value;
-hot reload does not apply it.
-
-### Run on a physical Android tablet
-
-1. Connect the tablet and API computer to the same Wi-Fi network.
-2. Start the API on the computer with `py route_api.py`.
-3. Run `ipconfig` and find the IPv4 address of the computer's active Wi-Fi
-   adapter, for example `192.168.1.20`.
-4. Launch the app using that LAN address:
-
-```powershell
-flutter run --dart-define=ROUTE_API_URL=http://192.168.1.20:8000/route-requests
-```
-
-If Windows Firewall asks, allow Python network access on **Private networks**.
-
-### Google Chrome testing
-
-Chrome is supported for local testing. Start the API with `py route_api.py`,
-then run:
-
-```powershell
-flutter run -d chrome
-```
-
-The default `localhost` URL works when Chrome and the API run on the same
-computer. The API includes the CORS headers required for browser requests.
+For the real demo, the Flutter app sends requests to the Coordinator API.

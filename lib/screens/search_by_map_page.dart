@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
@@ -123,6 +124,14 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
         const SnackBar(content: Text('Could not connect to the route API.')),
       );
       return;
+    } on TimeoutException {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('The route request timed out. Please try again.'),
+        ),
+      );
+      return;
     }
 
     SessionTracker.instance.recordClick('Booking confirmed');
@@ -135,7 +144,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       Uri.parse(_routeApiUrl),
       headers: const {'Content-Type': 'application/json'},
       body: jsonEncode({'destination': _destination, 'user_id': userId}),
-    );
+    ).timeout(const Duration(seconds: 10));
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw _RouteApiException('API returned HTTP ${response.statusCode}');
     }
