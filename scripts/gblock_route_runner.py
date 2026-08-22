@@ -2719,10 +2719,17 @@ class GBlockRouteRunner(Node):
         self.get_logger().info("Wall-follow complete.")
         return True
 
-    def run_route(self, destination, dry_run=True):
-        # This first planner version assumes Gem begins at the tested
-        # IoT Lab starting position and orientation.
-        start_node = self.default_start_node
+    def run_route(
+        self,
+        destination,
+        dry_run=True,
+        start_node=None,
+    ):
+        # Use the map default unless the caller explicitly supplies
+        # a different physical starting node.
+        if start_node is None:
+            start_node = self.default_start_node
+
         current_map_heading_deg = self.default_start_heading_deg
 
         graph_nodes = self.get_topological_nodes()
@@ -3043,6 +3050,15 @@ def main():
     )
 
     parser.add_argument(
+        "--start-node",
+        default=None,
+        help=(
+            "Optional topological map node where this route begins. "
+            "If omitted, the map default_start_node is used."
+        ),
+    )
+
+    parser.add_argument(
         "--namespace",
         default="/gem",
         help="Robot namespace. Default: /gem"
@@ -3084,7 +3100,8 @@ def main():
 
         route_success = node.run_route(
             destination=args.destination,
-            dry_run=not args.run
+            dry_run=not args.run,
+            start_node=args.start_node,
         )
 
     except KeyboardInterrupt:

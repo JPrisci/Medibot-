@@ -39,6 +39,15 @@
     },
     "ELEVATOR_2": {
       "label": "Elevator 2"
+    },
+    "LEVEL2_ELEVATOR": {
+      "label": "Level 2 elevator receiving point"
+    },
+    "LEVEL2_TURN": {
+      "label": "Level 2 turn toward Digital Library"
+    },
+    "DIGITAL_LIBRARY": {
+      "label": "Digital Library"
     }
   },
   "edges": [
@@ -123,6 +132,20 @@
       "heading_deg": 180.0,
       "bidirectional": true,
       "enabled": true
+    },
+    {
+      "from": "LEVEL2_ELEVATOR",
+      "to": "LEVEL2_TURN",
+      "distance": 7.4,
+      "heading_deg": 0.0,
+      "bidirectional": true
+    },
+    {
+      "from": "LEVEL2_TURN",
+      "to": "DIGITAL_LIBRARY",
+      "distance": 6.57,
+      "heading_deg": -90.0,
+      "bidirectional": true
     }
   ]
 }

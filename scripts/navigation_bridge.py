@@ -142,6 +142,14 @@ class NavigationBridge(Node):
             destination,
         ]
 
+        # Jarvis uses the map's normal IOT_LAB default.
+        # Gem is physically placed at the Level 2 receiving point.
+        if self.robot_name == "gem":
+            command.extend([
+                "--start-node",
+                "LEVEL2_ELEVATOR",
+            ])
+
         if self.run_robot:
             command.append("--run")
 
