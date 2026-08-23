@@ -3106,6 +3106,7 @@ def main():
 
     except KeyboardInterrupt:
         node.get_logger().warn("Interrupted by user.")
+        node.abort_requested = True
         node.stop()
         route_success = False
 
@@ -3120,7 +3121,13 @@ def main():
         node.destroy_node()
         rclpy.shutdown()
 
-    return 0 if route_success else 1
+    if route_success:
+        return 0
+
+    if node.abort_requested:
+        return 2
+
+    return 1
 
 
 if __name__ == "__main__":

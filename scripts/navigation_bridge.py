@@ -9,6 +9,7 @@ from pathlib import Path
 
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import ExternalShutdownException
 from std_msgs.msg import String
 
 
@@ -99,6 +100,10 @@ class NavigationBridge(Node):
             .strip()
         )
 
+        if command == "report_receiving_ready":
+            self.handle_receiving_ready()
+            return
+
         if command != "start_route":
             self.get_logger().warn(
                 f"Unsupported navigation command: {command}"
@@ -129,6 +134,44 @@ class NavigationBridge(Node):
             daemon=True,
         )
         worker.start()
+
+    def handle_receiving_ready(self):
+        """Explicitly report that Gem is physically ready at Level 2."""
+
+        if self.robot_name != "gem":
+            self.get_logger().warn(
+                "report_receiving_ready is only valid for Gem."
+            )
+            return
+
+        if self.route_active:
+            self.get_logger().warn(
+                "Cannot report receiving readiness while a route is active."
+            )
+            return
+
+        if self.run_robot:
+            self.publish_navigation_event(
+                "arrived_at_receiving_point",
+                "LEVEL2_ELEVATOR",
+            )
+            return
+
+        if self.publish_dry_run_events:
+            self.get_logger().warn(
+                "Publishing SIMULATED receiving-point readiness."
+            )
+            self.publish_navigation_event(
+                "arrived_at_receiving_point",
+                "LEVEL2_ELEVATOR",
+                simulated=True,
+            )
+            return
+
+        self.get_logger().info(
+            "Dry-run receiving readiness accepted, but no event was "
+            "published because --publish-dry-run-events is disabled."
+        )
 
     def execute_route(self, destination):
         self.route_active = True
@@ -166,6 +209,11 @@ class NavigationBridge(Node):
             self.get_logger().error(
                 f"Could not execute route runner: {exc}"
             )
+            self.publish_route_interruption(
+                destination,
+                "route_failed",
+                f"Could not execute route runner: {exc}",
+            )
             return
 
         finally:
@@ -173,9 +221,28 @@ class NavigationBridge(Node):
             self.route_active = False
 
         if return_code != 0:
+            if return_code == 2 or return_code < 0:
+                navigation_event = "route_aborted"
+                reason = (
+                    "Navigation runner was aborted "
+                    f"(exit code {return_code})."
+                )
+            else:
+                navigation_event = "route_failed"
+                reason = (
+                    "Navigation runner failed "
+                    f"(exit code {return_code})."
+                )
+
             self.get_logger().error(
-                f"Route failed for {destination}. "
-                f"Runner exit code={return_code}"
+                f"Route interruption for {destination}: "
+                f"{navigation_event}, exit code={return_code}"
+            )
+
+            self.publish_route_interruption(
+                destination,
+                navigation_event,
+                reason,
             )
             return
 
@@ -201,6 +268,61 @@ class NavigationBridge(Node):
                 "Dry run completed successfully. "
                 "No arrival event published."
             )
+
+    def publish_navigation_event(
+        self,
+        navigation_event,
+        destination,
+        simulated=False,
+        reason=None,
+    ):
+        event_data = {
+            "robot_name": self.robot_name,
+            "navigation_event": navigation_event,
+            "destination": destination,
+        }
+
+        if simulated:
+            event_data["simulated"] = True
+
+        if reason is not None and str(reason).strip():
+            event_data["reason"] = str(reason).strip()
+
+        msg = String()
+        msg.data = json.dumps(event_data)
+        self.navigation_event_publisher.publish(msg)
+
+        self.get_logger().info(
+            f"Published navigation event: {msg.data}"
+        )
+
+    def publish_route_interruption(
+        self,
+        destination,
+        navigation_event,
+        reason,
+    ):
+        if self.run_robot:
+            self.publish_navigation_event(
+                navigation_event,
+                destination,
+                reason=reason,
+            )
+            return
+
+        if self.publish_dry_run_events:
+            self.publish_navigation_event(
+                navigation_event,
+                destination,
+                simulated=True,
+                reason=reason,
+            )
+            return
+
+        self.get_logger().info(
+            "Dry-run route interruption detected. No navigation event "
+            "published because --publish-dry-run-events is disabled."
+        )
 
     def publish_success_event(
         self,
@@ -230,22 +352,10 @@ class NavigationBridge(Node):
             )
             return
 
-        event_data = {
-            "robot_name": self.robot_name,
-            "navigation_event": navigation_event,
-            "destination": destination,
-        }
-
-        if simulated:
-            event_data["simulated"] = True
-
-        msg = String()
-        msg.data = json.dumps(event_data)
-
-        self.navigation_event_publisher.publish(msg)
-
-        self.get_logger().info(
-            f"Published navigation event: {msg.data}"
+        self.publish_navigation_event(
+            navigation_event,
+            destination,
+            simulated=simulated,
         )
 
     def stop_active_route(self):
@@ -309,6 +419,11 @@ def main():
         node.get_logger().info(
             "Navigation bridge stopped by user."
         )
+
+    except ExternalShutdownException:
+        # Normal ROS shutdown, for example when the bridge
+        # process receives SIGTERM from a launcher or test.
+        pass
 
     finally:
         node.stop_active_route()
