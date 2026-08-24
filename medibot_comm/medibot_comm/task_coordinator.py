@@ -27,7 +27,7 @@ Current successful task flow:
 
 destination_selected
     ->
-Jarvis start_route -> ELEVATOR_1
+Jarvis start_route -> ELEVATOR_2
     ->
 handover_possible
     ->
@@ -80,7 +80,7 @@ class TaskCoordinator(Node):
         self.user_id = None
         self.current_stage = "waiting_for_destination"
         self.active_robot = None
-        self.transfer_point = "ELEVATOR_1"
+        self.transfer_point = "ELEVATOR_2"
         self.visitor_ready = False
 
         # ------------------------------------------------------------------

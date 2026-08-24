@@ -24,6 +24,11 @@ Currently supported conversions:
 Converted statuses are published on:
 
     /medibot/robot_status
+
+The node also listens for task_reset on /medibot/ux_event.
+When a task is reset, previously cached navigation-derived robot
+statuses are cleared so that a new visitor task cannot inherit
+handover state from the previous task.
 """
 
 import json
@@ -42,6 +47,15 @@ class NavigationStatusAdapter(Node):
             String,
             "/medibot/navigation_event",
             self.receive_navigation_event,
+            10,
+        )
+
+        # Listen for UX events so task_reset can clear cached
+        # navigation-derived robot statuses.
+        self.ux_event_subscription = self.create_subscription(
+            String,
+            "/medibot/ux_event",
+            self.receive_ux_event,
             10,
         )
 
@@ -64,11 +78,55 @@ class NavigationStatusAdapter(Node):
         )
 
         self.get_logger().info("Navigation status adapter started.")
+
         self.get_logger().info(
             "Listening on /medibot/navigation_event"
         )
+
+        self.get_logger().info(
+            "Listening for task_reset on /medibot/ux_event"
+        )
+
         self.get_logger().info(
             "Publishing converted statuses on /medibot/robot_status"
+        )
+
+    def receive_ux_event(self, msg):
+        """
+        Observe UX events that affect cached Communication state.
+
+        Only task_reset is handled here. Other UX events remain the
+        responsibility of the TaskCoordinator.
+        """
+
+        try:
+            event_data = json.loads(msg.data)
+
+        except json.JSONDecodeError:
+            return
+
+        if not isinstance(event_data, dict):
+            return
+
+        event = (
+            str(event_data.get("event", ""))
+            .lower()
+            .strip()
+        )
+
+        if event != "task_reset":
+            return
+
+        # Clear all navigation-derived robot statuses from the previous task.
+        #
+        # Without this, handover_requested and handover_ready from a previous
+        # visitor could continue being republished and incorrectly affect the
+        # next visitor task.
+        self.latest_statuses.clear()
+
+        self.get_logger().info(
+            "Task reset received. Cleared cached navigation-derived "
+            "robot statuses."
         )
 
     def receive_navigation_event(self, msg):
@@ -76,6 +134,7 @@ class NavigationStatusAdapter(Node):
 
         try:
             event_data = json.loads(msg.data)
+
         except json.JSONDecodeError:
             self.get_logger().warn(
                 f"Navigation event was not valid JSON: {msg.data}"
@@ -137,10 +196,15 @@ class NavigationStatusAdapter(Node):
         # Publish immediately instead of waiting for the next timer tick.
         self.publish_status(status_data)
 
-    def convert_event_to_status(self, robot_name, navigation_event):
+    def convert_event_to_status(
+        self,
+        robot_name,
+        navigation_event,
+    ):
         """Translate navigation language into communication language."""
 
-        # Jarvis reaches the first-floor transfer point and requests handover.
+        # Jarvis reaches the first-floor transfer point
+        # and requests handover.
         if (
             robot_name == "jarvis"
             and navigation_event == "arrived_at_transfer_point"
@@ -164,7 +228,7 @@ class NavigationStatusAdapter(Node):
                 "handover_status": "ready",
             }
 
-        # Other navigation events can be added and tested later.
+        # Other navigation events are handled elsewhere where required.
         return None
 
     def publish_status(self, status_data):
