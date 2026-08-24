@@ -29,6 +29,12 @@ import pygame
 
 POLL_INTERVAL_SECONDS = 1.0
 HANDOVER_STAGES = {"waiting_for_visitor_ready", "handover_ready"}
+WHITE = (255, 255, 255)
+INK = (35, 41, 55)
+SUBTLE_INK = (94, 105, 125)
+FACE_PINK = (239, 162, 198)
+GREEN = (100, 205, 124)
+ERROR = (180, 20, 20)
 
 
 class CoordinatorClient:
@@ -101,10 +107,53 @@ class CoordinatorClient:
 
 
 def load_face(screen: pygame.Surface) -> pygame.Surface:
-    """Load and scale the default face relative to this file, not the CWD."""
+    """Load the default face without stretching it on different screens."""
     image_path = Path(__file__).parent / "Expressions" / "Happy_Affection.png"
     image = pygame.image.load(str(image_path))
-    return pygame.transform.scale(image, screen.get_size())
+    source_width, source_height = image.get_size()
+    target_width, target_height = screen.get_size()
+    scale = min(target_width / source_width, target_height / source_height)
+    size = (int(source_width * scale), int(source_height * scale))
+    return pygame.transform.smoothscale(image, size)
+
+
+def draw_panel(
+    screen: pygame.Surface,
+    rect: pygame.Rect,
+    colour: tuple[int, int, int],
+) -> None:
+    """Draw a soft card used for readable text over the face."""
+    shadow = rect.move(0, 7)
+    pygame.draw.rect(screen, (206, 181, 193), shadow, border_radius=24)
+    pygame.draw.rect(screen, colour, rect, border_radius=24)
+
+
+def draw_centered_text(
+    screen: pygame.Surface,
+    text: str,
+    font: pygame.font.Font,
+    colour: tuple[int, int, int],
+    centre: tuple[int, int],
+) -> None:
+    rendered = font.render(text, True, colour)
+    screen.blit(rendered, rendered.get_rect(center=centre))
+
+
+def draw_visitor_badge(
+    screen: pygame.Surface,
+    user_id: str,
+    font: pygame.font.Font,
+) -> None:
+    """Show the active visitor in the same place on both robot displays."""
+    visible_user_id = user_id if len(user_id) <= 28 else f"{user_id[:25]}..."
+    label = f"Visitor: {visible_user_id}"
+    rendered = font.render(label, True, INK)
+    badge = rendered.get_rect()
+    badge.inflate_ip(36, 20)
+    badge.midtop = (screen.get_width() // 2, 24)
+    pygame.draw.rect(screen, WHITE, badge, border_radius=16)
+    pygame.draw.rect(screen, (220, 224, 231), badge, width=2, border_radius=16)
+    screen.blit(rendered, rendered.get_rect(center=badge.center))
 
 
 def draw_wrapped_text(
@@ -183,7 +232,14 @@ def main() -> None:
     width, height = screen.get_size()
     heading_font = pygame.font.SysFont(None, 64)
     button_font = pygame.font.SysFont(None, 48)
-    continue_button = pygame.Rect(width // 8, height * 3 // 4, width * 3 // 4, 92)
+    body_font = pygame.font.SysFont(None, 38)
+    small_font = pygame.font.SysFont(None, 28)
+    continue_button = pygame.Rect(
+        width // 8,
+        int(height * 0.78),
+        width * 3 // 4,
+        86,
+    )
 
     state: dict = (
         {
@@ -214,6 +270,8 @@ def main() -> None:
                 if client is None:
                     break
                 error_message = client.error_queue.get_nowait()
+                if error_message.startswith("Could not continue route"):
+                    continue_requested = False
         except queue.Empty:
             pass
 
@@ -229,6 +287,7 @@ def main() -> None:
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
                 and arguments.role == "gem"
+                and booking_active
                 and at_handover
                 and not continue_requested
                 and continue_button.collidepoint(event.pos)
@@ -238,39 +297,81 @@ def main() -> None:
                 continue_requested = True
                 error_message = ""
 
-        screen.fill((255, 255, 255))
+        screen.fill(WHITE)
         if not booking_active:
-            idle_label = heading_font.render("Idle", True, (0, 0, 0))
-            screen.blit(idle_label, idle_label.get_rect(center=(width // 2, height // 2)))
-        else:
-            screen.blit(face, (0, 0))
+            idle_card = pygame.Rect(width // 2 - 230, height // 2 - 115, 460, 230)
+            draw_panel(screen, idle_card, WHITE)
+            pygame.draw.circle(screen, FACE_PINK, (width // 2, height // 2 - 45), 33)
+            pygame.draw.circle(screen, GREEN, (width // 2 + 25, height // 2 - 70), 10)
+            draw_centered_text(
+                screen, "Idle", heading_font, INK, (width // 2, height // 2 + 25)
+            )
+            draw_centered_text(
+                screen,
+                "Waiting for a new booking",
+                small_font,
+                SUBTLE_INK,
+                (width // 2, height // 2 + 68),
+            )
+        elif not at_handover:
+            screen.fill(FACE_PINK)
+            screen.blit(face, face.get_rect(center=(width // 2, height // 2)))
+
+        if booking_active:
+            draw_visitor_badge(screen, user_id, small_font)
 
         if booking_active and at_handover and arguments.role == "jarvis":
+            draw_centered_text(
+                screen,
+                "Handover",
+                body_font,
+                INK,
+                (width // 2, height // 2 - 72),
+            )
             draw_wrapped_text(
                 screen,
-                "Please enter the elevator and meet the robot waiting for you.",
-                heading_font,
-                (0, 0, 0),
-                (width // 2, height * 3 // 4),
+                "Please enter the elevator. The next robot will be waiting for you upstairs.",
+                body_font,
+                SUBTLE_INK,
+                (width // 2, height // 2 + 10),
                 width * 3 // 4,
             )
         elif booking_active and at_handover and arguments.role == "gem":
             if continue_requested:
-                message = "Starting your route…"
-                button_colour = (190, 220, 255)
+                draw_centered_text(
+                    screen,
+                    "Starting your route...",
+                    body_font,
+                    INK,
+                    (width // 2, height // 2),
+                )
             else:
-                message = f"Tap to continue route, {user_id}"
-                button_colour = (120, 220, 140)
-            pygame.draw.rect(screen, button_colour, continue_button, border_radius=18)
-            rendered = button_font.render(message, True, (0, 0, 0))
-            screen.blit(rendered, rendered.get_rect(center=continue_button.center))
+                draw_centered_text(
+                    screen,
+                    f"Waiting for {user_id}",
+                    body_font,
+                    INK,
+                    (width // 2, height // 2 - 74),
+                )
+                draw_centered_text(
+                    screen,
+                    "to continue the route",
+                    small_font,
+                    SUBTLE_INK,
+                    (width // 2, height // 2 - 28),
+                )
+                pygame.draw.rect(screen, GREEN, continue_button, border_radius=18)
+                rendered = button_font.render("Continue route", True, INK)
+                screen.blit(rendered, rendered.get_rect(center=continue_button.center))
 
         if error_message:
+            error_panel = pygame.Rect(20, height - 72, width - 40, 46)
+            pygame.draw.rect(screen, WHITE, error_panel, border_radius=16)
             draw_wrapped_text(
                 screen,
                 error_message,
-                pygame.font.SysFont(None, 28),
-                (180, 20, 20),
+                small_font,
+                ERROR,
                 (width // 2, height - 45),
                 width - 40,
             )
