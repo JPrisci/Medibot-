@@ -333,7 +333,7 @@ class NavigationBridge(Node):
 
         if (
             self.robot_name == "jarvis"
-            and destination == "ELEVATOR_1"
+            and destination == "ELEVATOR_2"
         ):
             navigation_event = "arrived_at_transfer_point"
 
