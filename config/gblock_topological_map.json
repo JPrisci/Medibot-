@@ -112,7 +112,7 @@
     {
       "from": "G1.23",
       "to": "MID_DOORS",
-      "distance": 6.1,
+      "distance": 6.4,
       "heading_deg": -90.0,
       "bidirectional": true,
       "enabled": true
