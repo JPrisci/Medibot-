@@ -1,0 +1,2023 @@
+header:
+  stamp:
+    sec: 1787885991
+    nanosec: 391298991
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885992
+    nanosec: 391298965
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885993
+    nanosec: 391430987
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885994
+    nanosec: 391291406
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885995
+    nanosec: 391367026
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885996
+    nanosec: 391305434
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885997
+    nanosec: 391379226
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885998
+    nanosec: 391290685
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787885999
+    nanosec: 391563182
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886000
+    nanosec: 391300802
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886001
+    nanosec: 391294924
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886002
+    nanosec: 391296663
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886003
+    nanosec: 391378867
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886004
+    nanosec: 391644915
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886005
+    nanosec: 179791249
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886005
+    nanosec: 391419771
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886006
+    nanosec: 391305239
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886007
+    nanosec: 391327039
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886008
+    nanosec: 391397752
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886009
+    nanosec: 391290017
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886010
+    nanosec: 391297357
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886011
+    nanosec: 391360711
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886011
+    nanosec: 981040953
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886012
+    nanosec: 131383173
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886012
+    nanosec: 391403422
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886013
+    nanosec: 391381435
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886014
+    nanosec: 391301371
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886015
+    nanosec: 391308812
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886016
+    nanosec: 391319878
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886017
+    nanosec: 391612599
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886018
+    nanosec: 391695838
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886019
+    nanosec: 391374540
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886020
+    nanosec: 391322988
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886021
+    nanosec: 391296847
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886022
+    nanosec: 391319961
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886023
+    nanosec: 391463897
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886024
+    nanosec: 391844243
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886025
+    nanosec: 391299022
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886026
+    nanosec: 391345817
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886027
+    nanosec: 391607350
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886028
+    nanosec: 391329945
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886029
+    nanosec: 391461515
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886030
+    nanosec: 391538389
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886031
+    nanosec: 391305526
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886032
+    nanosec: 392420638
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886033
+    nanosec: 391420952
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886034
+    nanosec: 391320356
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886035
+    nanosec: 391294804
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886036
+    nanosec: 391289947
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886037
+    nanosec: 391283433
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886038
+    nanosec: 391319788
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886039
+    nanosec: 391318768
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886040
+    nanosec: 391301404
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886041
+    nanosec: 391293148
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886042
+    nanosec: 79736603
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886042
+    nanosec: 391465884
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886043
+    nanosec: 391274965
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886043
+    nanosec: 979792749
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886044
+    nanosec: 392616471
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886045
+    nanosec: 391374498
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886046
+    nanosec: 391310547
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886046
+    nanosec: 429940008
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886046
+    nanosec: 630525168
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886047
+    nanosec: 391306755
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886048
+    nanosec: 391325295
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886048
+    nanosec: 230296641
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886048
+    nanosec: 479689666
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886049
+    nanosec: 391288396
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886050
+    nanosec: 391369267
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886051
+    nanosec: 391281335
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886050
+    nanosec: 982028147
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886052
+    nanosec: 130032304
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886052
+    nanosec: 391302175
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886053
+    nanosec: 391482012
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886054
+    nanosec: 391308413
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886053
+    nanosec: 679748885
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886054
+    nanosec: 879766961
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886055
+    nanosec: 391291435
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886056
+    nanosec: 391764294
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886057
+    nanosec: 391299521
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886058
+    nanosec: 391324471
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886059
+    nanosec: 391623226
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886060
+    nanosec: 392743334
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886061
+    nanosec: 391284987
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886062
+    nanosec: 391830020
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886063
+    nanosec: 391276698
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886064
+    nanosec: 391362972
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886065
+    nanosec: 391384638
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886066
+    nanosec: 391334873
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886067
+    nanosec: 391448631
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886068
+    nanosec: 392042678
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886069
+    nanosec: 391381567
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886070
+    nanosec: 391622364
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886071
+    nanosec: 391765769
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886072
+    nanosec: 392573169
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886073
+    nanosec: 391300474
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886074
+    nanosec: 391667662
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886075
+    nanosec: 391279174
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886076
+    nanosec: 391673237
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886077
+    nanosec: 229782343
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886077
+    nanosec: 391693757
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886078
+    nanosec: 391390546
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886079
+    nanosec: 391288524
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886079
+    nanosec: 529813455
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886080
+    nanosec: 281076918
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886080
+    nanosec: 391674636
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886080
+    nanosec: 684271065
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886081
+    nanosec: 391251820
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886081
+    nanosec: 430609506
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886081
+    nanosec: 831837026
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886082
+    nanosec: 391820723
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886082
+    nanosec: 529978526
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886082
+    nanosec: 930424585
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886083
+    nanosec: 391305851
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886084
+    nanosec: 391316117
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886085
+    nanosec: 391320445
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886086
+    nanosec: 392026764
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886087
+    nanosec: 391337415
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886087
+    nanosec: 881284526
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886088
+    nanosec: 232956098
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886088
+    nanosec: 392861159
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886088
+    nanosec: 879777357
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886089
+    nanosec: 391286354
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886090
+    nanosec: 391953626
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886091
+    nanosec: 229831841
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886091
+    nanosec: 391291901
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886091
+    nanosec: 929766425
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886092
+    nanosec: 379754527
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886092
+    nanosec: 391302184
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886093
+    nanosec: 31909664
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886093
+    nanosec: 391291754
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886093
+    nanosec: 580531687
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886094
+    nanosec: 232019661
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886094
+    nanosec: 391967296
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886094
+    nanosec: 631964848
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886095
+    nanosec: 391280406
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886095
+    nanosec: 780101545
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886096
+    nanosec: 391346616
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886097
+    nanosec: 391277389
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886098
+    nanosec: 391864193
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886099
+    nanosec: 391300485
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886100
+    nanosec: 391782153
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886101
+    nanosec: 391279177
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886102
+    nanosec: 393740838
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886103
+    nanosec: 391302851
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886104
+    nanosec: 331124246
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886104
+    nanosec: 393244159
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886104
+    nanosec: 629915946
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886105
+    nanosec: 391291542
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886106
+    nanosec: 393601751
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886107
+    nanosec: 391294339
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886108
+    nanosec: 393145709
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886109
+    nanosec: 391281930
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886110
+    nanosec: 393152667
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886111
+    nanosec: 391293379
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886112
+    nanosec: 391939680
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886113
+    nanosec: 391284620
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886114
+    nanosec: 392006597
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886115
+    nanosec: 391274731
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886116
+    nanosec: 392221393
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886117
+    nanosec: 391299770
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886118
+    nanosec: 393351231
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886118
+    nanosec: 979756207
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886119
+    nanosec: 391278860
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886119
+    nanosec: 579957118
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886120
+    nanosec: 393273687
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886120
+    nanosec: 929834105
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886121
+    nanosec: 391279797
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886122
+    nanosec: 230054034
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886122
+    nanosec: 392452103
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886123
+    nanosec: 280722967
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886123
+    nanosec: 391383192
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886123
+    nanosec: 931848679
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886124
+    nanosec: 392761136
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886125
+    nanosec: 391284159
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886126
+    nanosec: 392720937
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886127
+    nanosec: 391285055
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886128
+    nanosec: 393060834
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886129
+    nanosec: 391293100
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886130
+    nanosec: 392918404
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886131
+    nanosec: 391279500
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886132
+    nanosec: 391284591
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886133
+    nanosec: 391282908
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886134
+    nanosec: 391289419
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886135
+    nanosec: 391298520
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886136
+    nanosec: 391292332
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886137
+    nanosec: 391307040
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886138
+    nanosec: 391407194
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886139
+    nanosec: 391367725
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886140
+    nanosec: 391297646
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886141
+    nanosec: 391341003
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886142
+    nanosec: 330568659
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886142
+    nanosec: 391285394
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886143
+    nanosec: 391297349
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886144
+    nanosec: 391349212
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886145
+    nanosec: 391297171
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886146
+    nanosec: 391376002
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886147
+    nanosec: 391531758
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886148
+    nanosec: 391282964
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886149
+    nanosec: 391299343
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886150
+    nanosec: 391331730
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886151
+    nanosec: 391299521
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886152
+    nanosec: 391370633
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886153
+    nanosec: 391617088
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886153
+    nanosec: 880129771
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886154
+    nanosec: 229820784
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886154
+    nanosec: 391292738
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886155
+    nanosec: 391302820
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886156
+    nanosec: 391283370
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886157
+    nanosec: 391303019
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886158
+    nanosec: 391411947
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886159
+    nanosec: 391295731
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886160
+    nanosec: 391418110
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886161
+    nanosec: 391310536
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886162
+    nanosec: 391301306
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886163
+    nanosec: 391302391
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886164
+    nanosec: 391299155
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886165
+    nanosec: 391368590
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886166
+    nanosec: 391361873
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886167
+    nanosec: 391342492
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886168
+    nanosec: 391288396
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886169
+    nanosec: 391310609
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886170
+    nanosec: 391295123
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886171
+    nanosec: 391555168
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886172
+    nanosec: 391469193
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886173
+    nanosec: 391582686
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886174
+    nanosec: 391466497
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886175
+    nanosec: 391316745
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886176
+    nanosec: 391296193
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886177
+    nanosec: 391667193
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886178
+    nanosec: 391262561
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886179
+    nanosec: 391333225
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886180
+    nanosec: 391272582
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886181
+    nanosec: 391322075
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886182
+    nanosec: 391314127
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886182
+    nanosec: 729891227
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886182
+    nanosec: 882924326
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886183
+    nanosec: 391852271
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886184
+    nanosec: 391261751
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886184
+    nanosec: 579969552
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886184
+    nanosec: 829816997
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886185
+    nanosec: 391317599
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886185
+    nanosec: 529936724
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886186
+    nanosec: 391262367
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886187
+    nanosec: 391306346
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886188
+    nanosec: 391448728
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886189
+    nanosec: 329862723
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886189
+    nanosec: 391516399
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886190
+    nanosec: 391274100
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886190
+    nanosec: 329909567
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886191
+    nanosec: 379783671
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886191
+    nanosec: 392129137
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886192
+    nanosec: 391303174
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886192
+    nanosec: 229715657
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886193
+    nanosec: 391304975
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886193
+    nanosec: 880698907
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886194
+    nanosec: 391332211
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886195
+    nanosec: 279733866
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886195
+    nanosec: 391310341
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886195
+    nanosec: 429820638
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886196
+    nanosec: 391262745
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886197
+    nanosec: 391427545
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886197
+    nanosec: 479862204
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886197
+    nanosec: 929958910
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886198
+    nanosec: 391272504
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886199
+    nanosec: 391308973
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886199
+    nanosec: 982548993
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886200
+    nanosec: 391514885
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886201
+    nanosec: 393198383
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886202
+    nanosec: 391262994
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886203
+    nanosec: 391479844
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886204
+    nanosec: 391288413
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886205
+    nanosec: 391306830
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886206
+    nanosec: 391780511
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886207
+    nanosec: 391307568
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886208
+    nanosec: 391260550
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886209
+    nanosec: 391861796
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886210
+    nanosec: 391266528
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886211
+    nanosec: 391319113
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886212
+    nanosec: 391708885
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 391340709
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886214
+    nanosec: 391337592
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886214
+    nanosec: 679758501
+  frame_id: base_link
+is_stopped: false
+---
+header:
+  stamp:
+    sec: 1787886214
+    nanosec: 979923716
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886215
+    nanosec: 391405626
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886216
+    nanosec: 391288073
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886217
+    nanosec: 391318875
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886218
+    nanosec: 391293917
+  frame_id: base_link
+is_stopped: true
+---
+header:
+  stamp:
+    sec: 1787886219
+    nanosec: 391306099
+  frame_id: base_link
+is_stopped: true
+---

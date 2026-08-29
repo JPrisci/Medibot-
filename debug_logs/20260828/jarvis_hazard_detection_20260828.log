@@ -1,0 +1,3682 @@
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 755871484
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787886213
+      nanosec: 948170253
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787886213
+      nanosec: 948170253
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 92343322
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 92343322
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 221791233
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 221791233
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 221791233
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 301956458
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 301956458
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 348554115
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 348554115
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 348554115
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 476346199
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 476346199
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 476346199
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 476346199
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 524457582
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 524457582
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 524457582
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 524457582
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887307
+      nanosec: 524457582
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 84350798
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 84350798
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 84350798
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 84350798
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 260404053
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 260404053
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 260404053
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 260404053
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 260404053
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 676447180
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 676447180
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 676447180
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 676447180
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 788580200
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 788580200
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 788580200
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 900399778
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887308
+      nanosec: 900399778
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 220432140
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 220432140
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 220432140
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 254090793
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 254090793
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 254090793
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 254090793
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 284454246
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 284454246
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 284454246
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 284454246
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887309
+      nanosec: 284454246
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 500477547
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 500477547
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 500477547
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 500477547
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 660482268
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 660482268
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 660482268
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 660482268
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887310
+      nanosec: 660482268
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887311
+      nanosec: 972566438
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887311
+      nanosec: 972566438
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887311
+      nanosec: 972566438
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887311
+      nanosec: 972566438
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 52579400
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 52579400
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 52579400
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 52579400
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 52579400
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 404557870
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 404557870
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 404557870
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 404557870
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 452580483
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 452580483
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 452580483
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 452580483
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 452580483
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 660700202
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 660700202
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 660700202
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 660700202
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 789843623
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 789843623
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 789843623
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 789843623
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 789843623
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 980717447
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 980717447
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 980717447
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887312
+      nanosec: 980717447
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 124790636
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 124790636
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 124790636
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 124790636
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 124790636
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 396614274
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 396614274
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 396614274
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 396614274
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 492643246
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 492643246
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 492643246
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 492643246
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887313
+      nanosec: 492643246
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 732864852
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 732864852
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 732864852
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 732864852
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 940973517
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 940973517
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 940973517
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 940973517
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 940973517
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 957146147
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 957146147
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 957146147
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 957146147
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 989198273
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 989198273
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 989198273
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 989198273
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887317
+      nanosec: 989198273
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 884899982
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 884899982
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 884899982
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 884899982
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 916894254
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 916894254
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887318
+      nanosec: 916894254
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 124903975
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 124903975
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 124903975
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 124903975
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 124903975
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 957014411
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 957014411
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 957014411
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887319
+      nanosec: 957014411
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 36956441
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 36956441
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 36956441
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 309231418
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 309231418
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 309231418
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 309231418
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 452971871
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 452971871
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 452971871
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 452971871
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 452971871
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 917002769
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 917002769
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 917002769
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887320
+      nanosec: 917002769
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 669227827
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 669227827
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 669227827
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 669227827
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 669227827
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 829536842
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 829536842
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 829536842
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887321
+      nanosec: 829536842
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 149375728
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 149375728
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 149375728
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 533110424
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 533110424
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 533110424
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 533110424
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 549428283
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 549428283
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 549428283
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 549428283
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 549428283
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 661049083
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 661049083
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 661049083
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 661049083
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 741163611
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 741163611
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 741163611
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 741163611
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887322
+      nanosec: 741163611
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 269326900
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 269326900
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 269326900
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 269326900
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 349528523
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 349528523
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 349528523
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 782166777
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 782166777
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 893282307
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 893282307
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887325
+      nanosec: 893282307
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 37231357
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 37231357
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 37231357
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 37231357
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 69529090
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 69529090
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 69529090
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 69529090
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 69529090
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 629502643
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 629502643
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 629502643
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 629502643
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 773760585
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 773760585
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 773760585
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 934089180
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 934089180
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 934089180
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 934089180
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 949593414
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 949593414
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 949593414
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 949593414
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887326
+      nanosec: 949593414
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 181358919
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 181358919
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 181358919
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 181358919
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 326422245
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 326422245
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 326422245
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 326422245
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887328
+      nanosec: 326422245
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 621691802
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 621691802
+    frame_id: cliff_front_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 621691802
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 621691802
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787886213
+    nanosec: 916840731
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887329
+    nanosec: 813432128
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 813432128
+    frame_id: bump_front_center
+  type: 1
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887330
+    nanosec: 101681756
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887329
+      nanosec: 669666343
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887330
+    nanosec: 101681756
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 309842451
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887306
+      nanosec: 835834659
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 309842451
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887330
+    nanosec: 101681756
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 309842451
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 341109180
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 309842451
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887330
+    nanosec: 101681756
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 341109180
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 389940101
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887330
+    nanosec: 101681756
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 389940101
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 389940101
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 862633694
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 389940101
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887330
+      nanosec: 389940101
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 943624700
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 943624700
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 957481346
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 957481346
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 957481346
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 989968200
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 989968200
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 989968200
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 989968200
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 183125188
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 183125188
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 183125188
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 325528032
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 325528032
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 325528032
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 325528032
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 437493901
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 437493901
+    frame_id: cliff_front_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 437493901
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 550040887
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 550040887
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 661665450
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 661665450
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 661665450
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 821667620
+    frame_id: cliff_side_left
+  type: 2
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887332
+      nanosec: 821667620
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 876998301
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 14365232
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 141181675
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 14365232
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887331
+    nanosec: 685516524
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887331
+      nanosec: 685516524
+    frame_id: bump_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 14365232
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 14365232
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 277843053
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 14365232
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 373208687
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 373208687
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 14365232
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 502028211
+    frame_id: cliff_side_right
+  type: 2
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 373208687
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 373208687
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 502028211
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 373208687
+    frame_id: left_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 373208687
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 758226629
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887335
+      nanosec: 285220125
+    frame_id: right_wheel
+  type: 3
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 758226629
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887333
+    nanosec: 509800258
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887333
+      nanosec: 509800258
+    frame_id: bump_front_left
+  type: 1
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 758226629
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887334
+      nanosec: 758226629
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887337
+      nanosec: 77853751
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887361
+      nanosec: 959109883
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887362
+      nanosec: 7021364
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887363
+      nanosec: 831294594
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887363
+      nanosec: 879149174
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887365
+      nanosec: 720268110
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887365
+      nanosec: 751232441
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887367
+      nanosec: 575257537
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887367
+      nanosec: 607256652
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887369
+      nanosec: 463581382
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887369
+      nanosec: 511474542
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887371
+      nanosec: 335456208
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887371
+      nanosec: 367398498
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887372
+      nanosec: 327421631
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections:
+- header:
+    stamp:
+      sec: 1787887372
+      nanosec: 471775475
+    frame_id: base_link
+  type: 0
+---
+header:
+  stamp:
+    sec: 1787887335
+    nanosec: 525690253
+  frame_id: base_link
+detections: []
+---

@@ -97,7 +97,11 @@ class GBlockRouteRunner(Node):
 
         self.ir_values = {}
         self.have_ir = False
+        self.ir_sample_id = 0
+        self.ir_callback_time = None
         self.blocking_hazard = None
+        self.last_cmd_publish_time = None
+        self.last_cmd_command = None
 
         # Guarded odometry drive settings, based on initial sensor tests.
         self.drive_speed = 0.30
@@ -146,6 +150,11 @@ class GBlockRouteRunner(Node):
 
         self.front_trigger_confirmations = 3
         self.front_clear_confirmations = 5
+
+        # Time-based IR debounce. The Create 3 publishes IR at ~62.5 Hz,
+        # so sample-count debounce alone can trigger in only ~30-50 ms.
+        self.front_trigger_duration = 0.15
+        self.front_clear_duration = 0.20
 
         self.obstacle_scan_step_deg = 5.0
         self.obstacle_max_scan_deg = 60.0
@@ -774,6 +783,8 @@ class GBlockRouteRunner(Node):
 
         self.ir_values = values
         self.have_ir = True
+        self.ir_sample_id += 1
+        self.ir_callback_time = time.monotonic()
 
     def hazard_callback(self, msg):
         blocking = []
@@ -820,14 +831,49 @@ class GBlockRouteRunner(Node):
         }
         return names.get(status, f"STATUS_{status}")
 
-    def stop(self):
+    def stop(self, reason=None):
         msg = Twist()
         msg.linear.x = 0.0
         msg.angular.z = 0.0
 
+        if reason is not None:
+            self.get_logger().warn(
+                f"STOP COMMAND reason={reason} "
+                f"time={time.monotonic():.6f}"
+            )
+
         for _ in range(5):
-            self.cmd_pub.publish(msg)
+            self.publish_cmd_vel(
+                msg,
+                source=(
+                    f"stop:{reason}"
+                    if reason is not None
+                    else "stop"
+                ),
+            )
             time.sleep(0.02)
+
+    def publish_cmd_vel(self, command, source="drive"):
+        now = time.monotonic()
+        current_command = (
+            float(command.linear.x),
+            float(command.angular.z),
+        )
+
+        if self.last_cmd_publish_time is not None:
+            dt = now - self.last_cmd_publish_time
+
+            if dt > 0.20:
+                self.get_logger().warn(
+                    f"CMD_VEL GAP WARNING: dt={dt:.3f} sec | "
+                    f"last_command={self.last_cmd_command} | "
+                    f"current_command={current_command} | "
+                    f"source={source}"
+                )
+
+        self.cmd_pub.publish(command)
+        self.last_cmd_publish_time = now
+        self.last_cmd_command = current_command
 
     def get_ip_address(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -1969,6 +2015,8 @@ class GBlockRouteRunner(Node):
         self.stop()
         deadline = time.monotonic() + self.obstacle_wait_seconds
         clear_count = 0
+        last_clear_eval_ir_sample_id = None
+        clear_since = None
 
         self.get_logger().warn(
             f"Front obstacle detected. Waiting "
@@ -1998,6 +2046,13 @@ class GBlockRouteRunner(Node):
             if self.blocking_hazard == "BUMP":
                 return False
 
+            current_ir_sample_id = self.ir_sample_id
+
+            if current_ir_sample_id == last_clear_eval_ir_sample_id:
+                time.sleep(0.08)
+                continue
+
+            last_clear_eval_ir_sample_id = current_ir_sample_id
             readings = self.front_ir_snapshot()
 
             blocked, _, _ = (
@@ -2007,19 +2062,31 @@ class GBlockRouteRunner(Node):
                 )
             )
 
+            clear_now = time.monotonic()
+
             if blocked:
                 clear_count = 0
+                clear_since = None
             else:
                 clear_count += 1
 
-            if (
-                clear_count
-                >= self.front_clear_confirmations
-            ):
-                self.get_logger().info(
-                    "Front path cleared; resuming the original drive."
-                )
-                return True
+                if clear_since is None:
+                    clear_since = clear_now
+
+                clear_for = clear_now - clear_since
+
+                if (
+                    clear_for
+                    >= self.front_clear_duration
+                ):
+                    self.get_logger().info(
+                        f"Front path continuously clear for "
+                        f"{clear_for:.3f} sec across "
+                        f"{clear_count} distinct IR samples; "
+                        "resuming the original drive. "
+                        f"ir_sample_id={current_ir_sample_id}"
+                    )
+                    return True
 
             time.sleep(0.08)
 
@@ -2311,6 +2378,8 @@ class GBlockRouteRunner(Node):
         target_yaw = self.odom_yaw
 
         front_high_count = 0
+        last_front_eval_ir_sample_id = None
+        front_blocked_since = None
         recovery_count = 0
         heading_recovery_count = 0
         side_wall_correction_active = use_side_wall_correction
@@ -2334,7 +2403,7 @@ class GBlockRouteRunner(Node):
 
             if self.abort_requested:
                 self.get_logger().error("Drive aborted from phone.")
-                self.stop()
+                self.stop(reason="abort")
                 return False
 
             if (
@@ -2353,7 +2422,7 @@ class GBlockRouteRunner(Node):
                     f"Drive stopped by hard hazard: "
                     f"{self.blocking_hazard}"
                 )
-                self.stop()
+                self.stop(reason="blocking_hazard")
                 return False
 
             bump_detected = (
@@ -2387,7 +2456,7 @@ class GBlockRouteRunner(Node):
                 abs(heading_error_deg)
                 > self.max_heading_error_deg
             ):
-                self.stop()
+                self.stop(reason="heading_recovery")
 
                 self.get_logger().warn(
                     f"Heading error "
@@ -2423,6 +2492,8 @@ class GBlockRouteRunner(Node):
                 side_wall_correction_active = False
 
                 front_high_count = 0
+                front_blocked_since = None
+                last_front_eval_ir_sample_id = self.ir_sample_id
 
                 # Refresh position after the in-place correction.
                 rclpy.spin_once(
@@ -2454,7 +2525,7 @@ class GBlockRouteRunner(Node):
                 continue
 
             if progress >= distance - 0.05:
-                self.stop()
+                self.stop(reason="edge_complete")
                 self.get_logger().info(
                     f"Drive complete. "
                     f"Progress={progress:.3f} m, "
@@ -2496,17 +2567,57 @@ class GBlockRouteRunner(Node):
                 center_only=center_only_detection,
             )
 
-            if front_detected:
-                front_high_count += 1
-            else:
-                front_high_count = 0
+            current_ir_sample_id = self.ir_sample_id
+            front_ir_confirmed = False
+
+            if (
+                current_ir_sample_id
+                != last_front_eval_ir_sample_id
+            ):
+                last_front_eval_ir_sample_id = current_ir_sample_id
+                ir_now = time.monotonic()
+
+                if front_detected:
+                    front_high_count += 1
+
+                    if front_blocked_since is None:
+                        front_blocked_since = ir_now
+
+                    blocked_for = (
+                        ir_now - front_blocked_since
+                    )
+
+                    self.get_logger().warn(
+                        f"FRONT DEBOUNCE: "
+                        f"blocked_for={blocked_for:.3f}/"
+                        f"{self.front_trigger_duration:.3f} sec | "
+                        f"samples={front_high_count} | "
+                        f"ir_sample_id={current_ir_sample_id} | "
+                        f"IR={readings} | "
+                        f"single={single_hits or '-'} | "
+                        f"adjacent={adjacent_hits or '-'}"
+                    )
+
+                    if (
+                        blocked_for
+                        >= self.front_trigger_duration
+                    ):
+                        front_ir_confirmed = True
+
+                else:
+                    front_high_count = 0
+                    front_blocked_since = None
 
             if (
                 bump_detected
-                or front_high_count
-                >= self.front_trigger_confirmations
+                or front_ir_confirmed
             ):
-                self.stop()
+                stop_reason = (
+                    "bump_detected"
+                    if bump_detected
+                    else "front_ir_confirmed"
+                )
+                self.stop(reason=stop_reason)
 
                 if not allow_obstacle_recovery:
                     self.get_logger().error(
@@ -2543,6 +2654,8 @@ class GBlockRouteRunner(Node):
 
                 recovery_count += 1
                 front_high_count = 0
+                front_blocked_since = None
+                last_front_eval_ir_sample_id = self.ir_sample_id
 
                 # Recalculate the projected position after the bypass.
                 dx = self.odom_x - start_x
@@ -2628,7 +2741,7 @@ class GBlockRouteRunner(Node):
             command = Twist()
             command.linear.x = speed
             command.angular.z = angular_command
-            self.cmd_pub.publish(command)
+            self.publish_cmd_vel(command, source="drive_distance")
 
             now = time.monotonic()
             if now - last_log >= 0.5:
@@ -2651,7 +2764,7 @@ class GBlockRouteRunner(Node):
                     f"turn={angular_command:+.3f} rad/s"
                 )
 
-        self.stop()
+        self.stop(reason="drive_timeout")
         self.get_logger().error("Guarded drive timed out.")
         return False
 
