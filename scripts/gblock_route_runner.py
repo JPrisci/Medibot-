@@ -103,6 +103,11 @@ class GBlockRouteRunner(Node):
         self.last_cmd_publish_time = None
         self.last_cmd_command = None
 
+        # A route must not continue using cached sensor values after the
+        # Create 3 loses its ROS 2/Wi-Fi connection. At the normal publish
+        # rates, one second allows generous jitter while still failing safe.
+        self.sensor_stale_timeout = 1.0
+
         # Guarded odometry drive settings, based on initial sensor tests.
         self.drive_speed = 0.30
         self.side_threshold = 6
@@ -141,11 +146,12 @@ class GBlockRouteRunner(Node):
         # Calibrated front-obstacle evidence.
         self.front_adjacent_threshold = 17
 
+        # A strong centre return can stop the robot by itself. The outward
+        # FL/FR sensors must agree with an adjacent sensor because isolated
+        # outer returns can come from door frames beside the route.
         self.front_single_thresholds = {
-            "FL": 15,
             "FCL": 20,
             "FCR": 27,
-            "FR": 15,
         }
 
         self.front_trigger_confirmations = 3
@@ -811,11 +817,28 @@ class GBlockRouteRunner(Node):
         while rclpy.ok() and time.monotonic() < deadline:
             rclpy.spin_once(self, timeout_sec=0.1)
 
-            if self.odom_yaw is not None and self.have_ir:
+            now = time.monotonic()
+            odom_fresh = (
+                self.last_odom_time is not None
+                and now - self.last_odom_time
+                <= self.sensor_stale_timeout
+            )
+            ir_fresh = (
+                self.ir_callback_time is not None
+                and now - self.ir_callback_time
+                <= self.sensor_stale_timeout
+            )
+
+            if (
+                self.odom_yaw is not None
+                and self.have_ir
+                and odom_fresh
+                and ir_fresh
+            ):
                 return True
 
         self.get_logger().error(
-            "Timed out waiting for odometry and IR data."
+            "Timed out waiting for fresh odometry and IR data."
         )
         return False
 
@@ -1572,21 +1595,19 @@ class GBlockRouteRunner(Node):
 
         An obstacle is indicated by either:
         - a moderately high adjacent sensor pair; or
-        - a sensor-specific strong return.
+        - a strong return from a centre-front sensor.
+
+        An isolated FL or FR return is peripheral evidence, not a blocked
+        forward route. This avoids false stops beside door frames while the
+        adjacent-pair and bumper checks still protect the robot.
         """
 
         if readings is None:
             readings = self.front_ir_snapshot()
 
-        active_names = (
-            ("FCL", "FCR")
-            if center_only
-            else ("FL", "FCL", "FCR", "FR")
-        )
-
         single_hits = [
             name
-            for name in active_names
+            for name in ("FCL", "FCR")
             if (
                 readings[name]
                 >= self.front_single_thresholds[name]
@@ -2404,6 +2425,30 @@ class GBlockRouteRunner(Node):
             if self.abort_requested:
                 self.get_logger().error("Drive aborted from phone.")
                 self.stop(reason="abort")
+                return False
+
+            now = time.monotonic()
+            odom_age = (
+                math.inf
+                if self.last_odom_time is None
+                else now - self.last_odom_time
+            )
+            ir_age = (
+                math.inf
+                if self.ir_callback_time is None
+                else now - self.ir_callback_time
+            )
+
+            if (
+                odom_age > self.sensor_stale_timeout
+                or ir_age > self.sensor_stale_timeout
+            ):
+                self.stop(reason="sensor_data_stale")
+                self.get_logger().error(
+                    "Drive stopped because Create 3 telemetry became "
+                    f"stale: odom_age={odom_age:.3f} sec | "
+                    f"ir_age={ir_age:.3f} sec."
+                )
                 return False
 
             if (

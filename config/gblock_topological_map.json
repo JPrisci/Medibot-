@@ -128,7 +128,7 @@
     {
       "from": "MID_DOORS",
       "to": "ELEVATOR_2",
-      "distance": 8.14,
+      "distance": 7.14,
       "heading_deg": 180.0,
       "bidirectional": true,
       "enabled": true
