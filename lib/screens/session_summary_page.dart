@@ -1,11 +1,15 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../session_tracker.dart';
+import 'admin_page.dart';
 import 'csv.dart';
 import 'loading_page.dart';
 import 'session_id.dart';
 import 'session_record_store.dart';
-import 'admin_page.dart';
 
 class SessionSummaryPage extends StatefulWidget {
   const SessionSummaryPage({super.key});
@@ -15,39 +19,137 @@ class SessionSummaryPage extends StatefulWidget {
 }
 
 class _SessionSummaryPageState extends State<SessionSummaryPage> {
+  // This is the same build setting used when the booking request is sent.
+  static const _routeApiUrl = String.fromEnvironment(
+    'ROUTE_API_URL',
+    defaultValue: 'http://localhost:8000/route-requests',
+  );
+
   bool _exporting = false;
+  bool _taskComplete = false;
+  bool _resetting = false;
   String? _exportError;
+  String? _resetError;
+  Timer? _taskStateTimer;
+  late final int _sessionClickCount;
+  late final String _sessionElapsedText;
+
+  Uri get _uxStateUrl => Uri.parse(
+    _routeApiUrl,
+  ).replace(path: '/ux-state/latest', query: null);
+
+  Uri get _taskResetUrl => Uri.parse(
+    _routeApiUrl,
+  ).replace(path: '/task-reset', query: null);
 
   @override
   void initState() {
     super.initState();
-    // Session just ended -> export as soon as this screen mounts.
+    final tracker = SessionTracker.instance;
+    _sessionClickCount = tracker.clickCount.value;
+    _sessionElapsedText = tracker.elapsedText;
     WidgetsBinding.instance.addPostFrameCallback((_) => _recordSession());
+    _checkTaskState();
+    _taskStateTimer = Timer.periodic(
+      const Duration(seconds: 2),
+      (_) => _checkTaskState(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _taskStateTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _checkTaskState() async {
+    if (_taskComplete) return;
+
+    try {
+      final response = await http
+          .get(_uxStateUrl)
+          .timeout(const Duration(seconds: 10));
+      if (response.statusCode != 200) return;
+
+      final state = jsonDecode(response.body);
+      if (state is! Map<String, dynamic>) return;
+
+      final taskFinished = state['state'] == 'task_complete' ||
+          state['current_stage'] == 'task_complete';
+      if (!taskFinished || !mounted) return;
+
+      _taskStateTimer?.cancel();
+      SessionTracker.instance.stop();
+      setState(() => _taskComplete = true);
+    } on http.ClientException {
+      // Keep the button disabled until the Coordinator is available again.
+    } on TimeoutException {
+      // Keep the button disabled until the Coordinator is available again.
+    } on FormatException {
+      // Ignore an invalid response and try again on the next poll.
+    }
   }
 
   Future<void> _recordSession() async {
-  setState(() => _exporting = true);
-  try {
-    final tracker = SessionTracker.instance;
-    final sessionId = await SessionIdProvider.nextId();
+    if (_exporting) return;
 
-    await SessionRecordStore.addRecord({
-      'session_id': sessionId,
-      'click_count': tracker.clickCount.value,
-      'elapsed_time': tracker.elapsedText,
-    });
-  } catch (e) {
-    _exportError = e.toString();
-  } finally {
-    if (mounted) setState(() => _exporting = false);
+    setState(() => _exporting = true);
+    try {
+      final sessionId = await SessionIdProvider.nextId();
+
+      await SessionRecordStore.addRecord({
+        'session_id': sessionId,
+        'click_count': _sessionClickCount,
+        'elapsed_time': _sessionElapsedText,
+      });
+    } catch (error) {
+      _exportError = error.toString();
+    } finally {
+      if (mounted) setState(() => _exporting = false);
+    }
   }
-}
+
+  Future<void> _startAgain() async {
+    if (!_taskComplete || _resetting) return;
+
+    setState(() {
+      _resetting = true;
+      _resetError = null;
+    });
+
+    try {
+      final response = await http
+          .post(_taskResetUrl)
+          .timeout(const Duration(seconds: 10));
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        throw _TaskResetException('API returned HTTP ${response.statusCode}');
+      }
+
+      SessionTracker.instance.reset();
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const LoadingPage()),
+        (route) => false,
+      );
+    } on http.ClientException {
+      _showResetError('Could not connect to the Coordinator. Please try again.');
+    } on TimeoutException {
+      _showResetError('The reset request timed out. Please try again.');
+    } on _TaskResetException catch (error) {
+      _showResetError('Could not reset task: ${error.message}');
+    }
+  }
+
+  void _showResetError(String message) {
+    if (!mounted) return;
+    setState(() {
+      _resetting = false;
+      _resetError = message;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final clickCount = SessionTracker.instance.clickCount.value;
-    final elapsedText = SessionTracker.instance.elapsedText;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF1FAF9),
       appBar: AppBar(
@@ -60,60 +162,100 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
           child: Center(
             child: Card(
               elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(28),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.emoji_events_rounded, size: 72, color: Color(0xFF1565C0)),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Session Complete',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Color(0xFF0D47A1)),
+                    Icon(
+                      _taskComplete
+                          ? Icons.emoji_events_rounded
+                          : Icons.route_rounded,
+                      size: 72,
+                      color: const Color(0xFF1565C0),
                     ),
                     const SizedBox(height: 16),
-                    Text('Total clicks: $clickCount', style: const TextStyle(fontSize: 20)),
-                    const SizedBox(height: 10),
-                    Text('Time taken: $elapsedText', style: const TextStyle(fontSize: 20)),
+                    Text(
+                      _taskComplete ? 'Session Complete' : 'Route in Progress',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0D47A1),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    if (_taskComplete) ...[
+                      Text(
+                        'Total clicks: $_sessionClickCount',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Time taken: $_sessionElapsedText',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                    ] else
+                      const Text(
+                        'The visitor is still being guided. Start Again will be available when the route is complete.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ),
                     const SizedBox(height: 12),
-                    if (_exporting)
-                      const Text('Saving CSV…', style: TextStyle(fontSize: 14, color: Colors.grey))
-                    else if (_exportError != null)
-                      Text('CSV export failed: $_exportError',
-                          style: const TextStyle(fontSize: 13, color: Colors.red))
-                    else
-                      const Text('CSV saved ✓', style: TextStyle(fontSize: 14, color: Colors.green)),
+                    if (_taskComplete && _exporting)
+                      const Text(
+                        'Saving CSV...',
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      )
+                    else if (_taskComplete && _exportError != null)
+                      Text(
+                        'CSV export failed: $_exportError',
+                        style: const TextStyle(fontSize: 13, color: Colors.red),
+                      )
+                    else if (_taskComplete)
+                      const Text(
+                        'CSV saved',
+                        style: TextStyle(fontSize: 14, color: Colors.green),
+                      ),
                     const SizedBox(height: 24),
                     FilledButton.icon(
-                      onPressed: () {
-                        SessionTracker.instance.reset();
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (_) => const LoadingPage()),
-                          (route) => false,
-                        );
-                      },
+                      onPressed: _taskComplete && !_resetting
+                          ? _startAgain
+                          : null,
                       icon: const Icon(Icons.restart_alt_rounded),
-                      label: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Text('Start Again'),
+                      label: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: Text(_resetting ? 'Resetting...' : 'Start Again'),
                       ),
                       style: FilledButton.styleFrom(
                         backgroundColor: const Color(0xFF1565C0),
+                        disabledBackgroundColor: Colors.grey.shade400,
                         minimumSize: const Size(220, 52),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
                       ),
                     ),
-                  const SizedBox(height: 12),
-                  TextButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const AdminPage()),
-                      );
-                    },
-                    icon: const Icon(Icons.admin_panel_settings_outlined),
-                    label: const Text('Admin'),
-                  ),
+                    if (_resetError != null) ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        _resetError!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 13, color: Colors.red),
+                      ),
+                    ],
+                    const SizedBox(height: 12),
+                    TextButton.icon(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const AdminPage()),
+                        );
+                      },
+                      icon: const Icon(Icons.admin_panel_settings_outlined),
+                      label: const Text('Admin'),
+                    ),
                   ],
                 ),
               ),
@@ -125,3 +267,8 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
   }
 }
 
+class _TaskResetException implements Exception {
+  const _TaskResetException(this.message);
+
+  final String message;
+}

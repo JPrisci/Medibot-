@@ -194,7 +194,14 @@ def is_handover_state(state: dict) -> bool:
 def has_active_booking(state: dict) -> bool:
     """Return true after the Coordinator has accepted a visitor task."""
     stage = str(state.get("current_stage", "")).strip()
-    return bool(state.get("user_id")) and stage != "waiting_for_destination"
+    task_complete = (
+        stage == "task_complete" or state.get("state") == "task_complete"
+    )
+    return (
+        bool(state.get("user_id"))
+        and stage != "waiting_for_destination"
+        and not task_complete
+    )
 
 
 def parse_args() -> argparse.Namespace:
