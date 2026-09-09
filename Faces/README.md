@@ -9,13 +9,13 @@ Coordinator accepts a visitor booking.
 Run this on Jarvis's screen:
 
 ```bash
-python3 faces.py --role jarvis --api-base-url http://10.11.29.155:8000
+python3 faces.py --role jarvis --api-base-url http://10.11.29.129:8000
 ```
 
 Run this on Gem's screen:
 
 ```bash
-python3 faces.py --role gem --api-base-url http://10.11.29.155:8000
+python3 faces.py --role gem --api-base-url http://10.11.29.129:8000
 ```
 
 When handover is ready, Jarvis tells the visitor to enter the elevator. Gem
