@@ -10,10 +10,10 @@ import 'session_summary_page.dart';
 
 /// Displays the floor plans used in the user-testing prototype.
 class SearchByMapPage extends StatefulWidget {
-  const SearchByMapPage({super.key, this.selectedWard});
+  const SearchByMapPage({super.key, this.selectedDepartment});
 
   // Kept while the department-search flow remains in the prototype.
-  final String? selectedWard;
+  final String? selectedDepartment;
 
   @override
   State<SearchByMapPage> createState() => _SearchByMapPageState();
@@ -22,8 +22,6 @@ class SearchByMapPage extends StatefulWidget {
 class _SearchByMapPageState extends State<SearchByMapPage> {
   static const _primaryBlue = Color(0xFF1565C0);
   static const _destination = 'DIGITAL_LIBRARY';
-  // Override for the deployed API, for example:
-  // flutter run --dart-define=ROUTE_API_URL=http://192.168.1.20:8000/route-requests
   static const _routeApiUrl = String.fromEnvironment(
     'ROUTE_API_URL',
     defaultValue: 'http://localhost:8000/route-requests',
@@ -41,7 +39,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
   void initState() {
     super.initState();
     // The enabled department option starts the same predefined route.
-    _showRoute = widget.selectedWard != null;
+    _showRoute = widget.selectedDepartment != null;
   }
 
   void _selectFloor(String floor) {
@@ -62,7 +60,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     if (_showRoute) {
       _cancelRoute();
     } else {
-      SessionTracker.instance.recordClick('Room 2.31 route');
+      SessionTracker.instance.recordClick('Fashion department route');
       setState(() => _showRoute = true);
     }
   }
@@ -79,16 +77,13 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Booking for $userId',
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            Text('Booking for $userId', style: const TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 16),
             const Text('Route', style: TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
-            const Text('Start: Room 1.05, G-1'),
+            const Text('Start: You are here, G-1'),
             const SizedBox(height: 4),
-            const Text('Destination: Room 2.31, G-2'),
+            const Text('Destination: Fashion department, G-2'),
             const SizedBox(height: 16),
             const Text('Call NaviBot?'),
           ],
@@ -113,9 +108,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     } on _RouteApiException catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Could not send route request: ${error.message}'),
-        ),
+        SnackBar(content: Text('Could not send route request: ${error.message}')),
       );
       return;
     } on http.ClientException {
@@ -127,9 +120,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     } on TimeoutException {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('The route request timed out. Please try again.'),
-        ),
+        const SnackBar(content: Text('The route request timed out. Please try again.')),
       );
       return;
     }
@@ -138,13 +129,14 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     _finishSession();
   }
 
-  /// Sends the confirmed request as strings that the route consumer can fetch.
   Future<void> _publishRouteRequest(String userId) async {
-    final response = await http.post(
-      Uri.parse(_routeApiUrl),
-      headers: const {'Content-Type': 'application/json'},
-      body: jsonEncode({'destination': _destination, 'user_id': userId}),
-    ).timeout(const Duration(seconds: 10));
+    final response = await http
+        .post(
+          Uri.parse(_routeApiUrl),
+          headers: const {'Content-Type': 'application/json'},
+          body: jsonEncode({'destination': _destination, 'user_id': userId}),
+        )
+        .timeout(const Duration(seconds: 10));
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw _RouteApiException('API returned HTTP ${response.statusCode}');
     }
@@ -166,10 +158,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'Search by Map',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Search by Map', style: TextStyle(color: Colors.white)),
         backgroundColor: _primaryBlue,
         leading: IconButton(
           color: Colors.white,
@@ -191,7 +180,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Hospital Map',
+                      'NaviBot Map',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -199,9 +188,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Select a floor or tap the destination marker to toggle its route.',
-                    ),
+                    const Text('Select a floor or tap the destination marker to toggle its route.'),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 8,
@@ -275,9 +262,9 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 20),
-                    _buildInfoRow('Start', 'Room 1.05, G-1'),
+                    _buildInfoRow('Start', 'You are here, G-1'),
                     const SizedBox(height: 12),
-                    _buildInfoRow('Destination', 'Room 2.31, G-2'),
+                    _buildInfoRow('Destination', 'Fashion department, G-2'),
                     const SizedBox(height: 12),
                     _buildInfoRow('Estimated Travel Time', 'N/A'),
                     const SizedBox(height: 20),
@@ -290,20 +277,11 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    _buildInfoRow(
-                      'NaviBots on floor',
-                      floorStats['total'].toString(),
-                    ),
+                    _buildInfoRow('NaviBots on floor', floorStats['total'].toString()),
                     const SizedBox(height: 8),
-                    _buildInfoRow(
-                      'Available NaviBots',
-                      floorStats['available'].toString(),
-                    ),
+                    _buildInfoRow('Available NaviBots', floorStats['available'].toString()),
                     const SizedBox(height: 8),
-                    _buildInfoRow(
-                      'NaviBots In Use',
-                      floorStats['inUse'].toString(),
-                    ),
+                    _buildInfoRow('NaviBots In Use', floorStats['inUse'].toString()),
                     const SizedBox(height: 20),
                     const Text(
                       'Key',
@@ -358,13 +336,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            color: _primaryBlue,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.w600, color: _primaryBlue)),
         const SizedBox(height: 6),
         Text(value, style: const TextStyle(fontSize: 15)),
       ],
@@ -396,8 +368,8 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
         color: retired
             ? Colors.grey.shade600
             : selected
-            ? Colors.white
-            : _primaryBlue,
+                ? Colors.white
+                : _primaryBlue,
         fontWeight: FontWeight.w600,
       ),
     );
@@ -408,10 +380,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       builder: (context, constraints) {
         final availableWidth = constraints.maxWidth;
         final availableHeight = constraints.maxHeight;
-        final mapWidth = math.min(
-          availableWidth,
-          availableHeight * _mapAspectRatio,
-        );
+        final mapWidth = math.min(availableWidth, availableHeight * _mapAspectRatio);
         final mapHeight = mapWidth / _mapAspectRatio;
         final mapLeft = (availableWidth - mapWidth) / 2;
         final mapTop = (availableHeight - mapHeight) / 2;
@@ -430,11 +399,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.asset(
-                      _mapAsset,
-                      key: ValueKey(_mapAsset),
-                      fit: BoxFit.fill,
-                    ),
+                    Image.asset(_mapAsset, key: ValueKey(_mapAsset), fit: BoxFit.fill),
                     if (_showRoute)
                       Positioned.fill(
                         child: IgnorePointer(
@@ -446,50 +411,66 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       ),
                     if (_selectedFloor == 'G-1')
                       Positioned(
-                        // The route starts at room 1.05: (41.7%, 20%) of G-1.
-                        left: (mapWidth * 0.417) - 12,
-                        top: (mapHeight * 0.200) - 12,
+                        // The user's current position: (41.7%, 20%) of G-1.
+                        left: (mapWidth * 0.417) - 42,
+                        top: (mapHeight * 0.200) - 18,
                         child: Semantics(
-                          label: 'Start: room 1.05',
+                          label: 'You are here',
                           child: const Tooltip(
-                            message: 'Start: room 1.05',
-                            child: Icon(
-                              Icons.trip_origin_rounded,
-                              color: _primaryBlue,
-                              size: 24,
+                            message: 'You are here',
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: _primaryBlue,
+                                borderRadius: BorderRadius.all(Radius.circular(14)),
+                                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 3)],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.person_pin_circle_rounded, color: Colors.white, size: 18),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'You are here',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
+                        )
                         ),
-                      ),
                     if (_selectedFloor == 'G-2')
                       Positioned(
-                        // The route ends at room 2.31: (69%, 66.2%) of G-2.
+                        // The route ends at Fashion: (69%, 66.2%) of G-2.
                         left: (mapWidth * 0.69) - 16,
                         top: (mapHeight * 0.662) - 16,
                         child: Semantics(
                           button: true,
                           label: _showRoute
-                              ? 'Cancel route at destination: room 2.31'
-                              : 'Start route to destination: room 2.31',
+                              ? 'Cancel route to the Fashion department'
+                              : 'Start route to the Fashion department',
                           child: Tooltip(
                             message: _showRoute
-                                ? 'Cancel route at destination: room 2.31'
-                                : 'Start route to destination: room 2.31',
+                                ? 'Cancel route to the Fashion department'
+                                : 'Start route to the Fashion department',
                             child: IconButton.filled(
-                              key: const ValueKey('room-2.31-destination'),
+                              key: const ValueKey('fashion-destination'),
                               onPressed: _toggleDestinationRoute,
                               style: IconButton.styleFrom(
-                                backgroundColor: _showRoute
-                                    ? Colors.green.shade700
-                                    : _primaryBlue,
+                                backgroundColor: _showRoute ? Colors.green.shade700 : _primaryBlue,
                                 minimumSize: const Size(32, 32),
                                 maximumSize: const Size(32, 32),
                                 padding: EdgeInsets.zero,
                               ),
                               icon: Icon(
-                                _showRoute
-                                    ? Icons.cancel_rounded
-                                    : Icons.flag_rounded,
+                                _showRoute ? Icons.cancel_rounded : Icons.flag_rounded,
                                 size: 16,
                               ),
                             ),
@@ -571,6 +552,5 @@ class _RoutePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _RoutePainter oldDelegate) =>
-      oldDelegate.floor != floor;
+  bool shouldRepaint(covariant _RoutePainter oldDelegate) => oldDelegate.floor != floor;
 }

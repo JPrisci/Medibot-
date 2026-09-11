@@ -51,7 +51,11 @@ class _LoadingPageState extends State<LoadingPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF1FAF9),
-      body: Column(children: [Expanded(child: currentPage)]),
+      body: Column(
+        children: [
+          Expanded(child: currentPage),
+        ],
+      ),
     );
   }
 
@@ -64,18 +68,22 @@ class _LoadingPageState extends State<LoadingPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.smart_toy, size: 88, color: Color(0xFF1565C0)),
+            const Icon(
+              Icons.smart_toy,
+              size: 88,
+              color: Color(0xFF1565C0),
+            ),
             const SizedBox(height: 24),
             Text(
               'NaviBot',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF0D47A1),
-              ),
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF0D47A1),
+                  ),
             ),
             const SizedBox(height: 12),
             const Text(
-              'Enter your name to begin navigating',
+              'Scenario: you need to get to the Fashion department.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
@@ -89,7 +97,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 onChanged: (_) => setState(() {}),
                 onSubmitted: (_) => _startSession(),
                 decoration: const InputDecoration(
-                  labelText: 'Your name',
+                  labelText: 'Your name or participant ID',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.person_outline_rounded),
                 ),
@@ -97,9 +105,7 @@ class _LoadingPageState extends State<LoadingPage> {
             ),
             const SizedBox(height: 28),
             FilledButton.icon(
-              onPressed: _nameController.text.trim().isEmpty
-                  ? null
-                  : _startSession,
+              onPressed: _nameController.text.trim().isEmpty ? null : _startSession,
               icon: const Icon(Icons.play_arrow_rounded),
               label: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -107,7 +113,6 @@ class _LoadingPageState extends State<LoadingPage> {
               ),
               style: FilledButton.styleFrom(
                 backgroundColor: const Color(0xFF1565C0),
-                disabledBackgroundColor: Colors.grey.shade300,
                 minimumSize: const Size(180, 56),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

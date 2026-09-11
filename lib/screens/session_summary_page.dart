@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 import '../session_tracker.dart';
 import 'admin_page.dart';
-import 'csv.dart';
 import 'loading_page.dart';
 import 'session_id.dart';
 import 'session_record_store.dart';
@@ -19,7 +18,6 @@ class SessionSummaryPage extends StatefulWidget {
 }
 
 class _SessionSummaryPageState extends State<SessionSummaryPage> {
-  // This is the same build setting used when the booking request is sent.
   static const _routeApiUrl = String.fromEnvironment(
     'ROUTE_API_URL',
     defaultValue: 'http://localhost:8000/route-requests',
@@ -96,7 +94,6 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
     setState(() => _exporting = true);
     try {
       final sessionId = await SessionIdProvider.nextId();
-
       await SessionRecordStore.addRecord({
         'session_id': sessionId,
         'click_count': _sessionClickCount,
@@ -173,13 +170,15 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
                     Icon(
                       _taskComplete
                           ? Icons.emoji_events_rounded
-                          : Icons.route_rounded,
+                          : Icons.smart_toy_rounded,
                       size: 72,
                       color: const Color(0xFF1565C0),
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      _taskComplete ? 'Session Complete' : 'Route in Progress',
+                      _taskComplete
+                          ? 'You have arrived at the Fashion department'
+                          : 'NaviBot is on its way',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -199,7 +198,7 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
                       ),
                     ] else
                       const Text(
-                        'The visitor is still being guided. Start Again will be available when the route is complete.',
+                        'Please wait for NaviBot. When it arrives, follow it to the Fashion department.',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16),
                       ),
@@ -221,9 +220,7 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
                       ),
                     const SizedBox(height: 24),
                     FilledButton.icon(
-                      onPressed: _taskComplete && !_resetting
-                          ? _startAgain
-                          : null,
+                      onPressed: _taskComplete && !_resetting ? _startAgain : null,
                       icon: const Icon(Icons.restart_alt_rounded),
                       label: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),

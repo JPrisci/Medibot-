@@ -1,11 +1,24 @@
-# MediBot Flutter App
+# NaviBot Flutter App
 
-This tablet app lets a visitor choose a route and confirm a booking. It then
-sends the route request to the MediBot Coordinator.
+The NaviBot Flutter app has the user book a route, and then the
+app sends the request to the NaviBot Coordinator.
 
-## What Flutter sends
+The Coordinator receives the request and handles the robot side of the route.
+The Flutter app does not control the robots directly.
 
-After the visitor enters their name and confirms the route, the app sends:
+## Connection flow
+
+```text
+Flutter tablet app
+    -> HTTP request
+Coordinator API on port 8000
+```
+
+When the visitor confirms the route in the app, Flutter sends:
+
+```text
+POST /route-requests
+```
 
 ```json
 {
@@ -14,71 +27,71 @@ After the visitor enters their name and confirms the route, the app sends:
 }
 ```
 
-to:
+The request is made in:
 
 ```text
-POST /route-requests
+lib/screens/search_by_map_page.dart
 ```
 
-The request is in `lib/screens/search_by_map_page.dart`. The name entered on
-the start screen is stored as `SessionTracker.userId` and sent as `user_id`.
+At the start screen, the visitor enters their name. The app stores that value
+in `SessionTracker.userId` and sends it to the API in the `user_id` field with
+the selected destination after the user presses **Confirm booking** and
+confirms again in the dialog.
 
-## Building for the tablet
+## API address
 
-The tablet must use the Coordinator Pi address, not `localhost`.
+For the normal tablet setup, `ROUTE_API_URL` should point to the Coordinator
+Pi, which is on another device on the same Wi-Fi network. The value is passed
+into Flutter when the APK is built:
+
+```text
+http://<COORDINATOR_PI_IP>:8000/route-requests
+```
+
+The app reads that value with:
+
+```dart
+const _routeApiUrl = String.fromEnvironment(
+  'ROUTE_API_URL',
+  defaultValue: 'http://localhost:8000/route-requests',
+);
+```
+
+The `localhost` value is only a fallback for local development, where Flutter
+and the API are running on the same computer. It is not the normal tablet
+setup.
+
+## Building the tablet app
+
+Build the Android APK with the Coordinator Pi address:
 
 ```powershell
 flutter build apk --release `
-  --dart-define=ROUTE_API_URL=http://10.11.29.155:8000/route-requests
+  --dart-define=ROUTE_API_URL=http://<COORDINATOR_PI_IP>:8000/route-requests
 ```
 
-Install the APK on the tablet. The tablet and Coordinator Pi must be on the
-same Wi-Fi network. The Pi needs a stable IP address.
-
-After a booking starts, the tablet waits for the Coordinator to report
-`task_complete`. The **Start Again** button stays grey while the route is in
-progress. Once it becomes available, it sends `POST /task-reset` before
-returning to the main menu for the next participant.
-
-## Testing with an Android emulator
-
-Start the local test API on the computer running the emulator:
+Example:
 
 ```powershell
-python route_api.py
+flutter build apk --release `
+  --dart-define=ROUTE_API_URL=http://192.168.1.50:8000/route-requests
 ```
 
-Then run Flutter with Android's special address for the host computer:
+## API endpoints
 
-```powershell
-flutter run --dart-define=ROUTE_API_URL=http://10.0.2.2:8000/route-requests
-```
+The relevant endpoints for Flutter are:
 
-Complete a booking in the emulator. A successful request moves the app to
-**Route in Progress** and the terminal running `route_api.py` shows a `201`
-response.
+- `POST /route-requests` - starts the visitor task and Jarvis's first route.
+- `GET /ux-state/latest` - reads the current visitor-task state.
+- `POST /visitor-ready` - starts Gem's final route after handover.
+- `POST /task-reset` - clears the task for the next visitor.
 
-`10.0.2.2` is the Android emulator address for the computer running it. Do not
-use `localhost` from the emulator.
+The current Flutter booking page uses `POST /route-requests`.
 
-For a real Controller test, use:
+## Current two-robot flow
 
-```powershell
-flutter run --dart-define=ROUTE_API_URL=http://10.11.29.155:8000/route-requests
-```
-
-Only use the real Controller when the robot team says it is safe, because the
-request can start a real route. The local `route_api.py` test only checks the
-initial booking request, so **Start Again** remains grey. Testing task
-completion and reset requires the real Controller API.
-
-## Local testing
-
-`route_api.py` is a simple local test server for testing the Flutter booking
-request without the full robot system:
-
-```powershell
-python route_api.py
-```
-
-For the real demo, the Flutter app sends requests to the Coordinator API.
+The Flutter tablet sends the booking request, polls for `task_complete`, and
+sends the reset request for the next participant. `Faces/faces.py` handles the
+elevator handover and sends `POST /visitor-ready` when the visitor is ready to
+continue with Gem. Keep those responsibilities separate unless the Controller
+API and both clients are changed together.

@@ -1,4 +1,4 @@
-# Robot Face Screens
+# NaviBot Face Screens
 
 `faces.py` runs the screen shown on each robot during the handover.
 It starts on a white **Idle** screen and switches to the robot face after the
@@ -19,8 +19,11 @@ python3 faces.py --role gem --api-base-url http://10.11.29.129:8000
 ```
 
 When handover is ready, Jarvis tells the visitor to enter the elevator. Gem
-shows a Continue button. Tapping Gem's button sends the visitor-ready request
+shows a **Ready to follow NaviBot?** button. Tapping Gem's button sends the visitor-ready request
 to the Coordinator so Gem can continue the route.
+
+When the Coordinator reports `task_complete`, the display shows an arrival message with a Confirm button.
+It returns to Idle after the button is pressed or after ten seconds of inactivity.
 
 ## Test without robots
 

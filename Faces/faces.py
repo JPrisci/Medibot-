@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Robot face display with MediBot handover integration.
+"""Robot face display with NaviBot handover integration.
 
 Run one copy on each robot display. The display reads the Coordinator's
 ``/ux-state/latest`` HTTP endpoint. When the coordinator reaches handover,
@@ -29,12 +29,6 @@ import pygame
 
 POLL_INTERVAL_SECONDS = 1.0
 HANDOVER_STAGES = {"waiting_for_visitor_ready", "handover_ready"}
-WHITE = (255, 255, 255)
-INK = (35, 41, 55)
-SUBTLE_INK = (94, 105, 125)
-FACE_PINK = (239, 162, 198)
-GREEN = (100, 205, 124)
-ERROR = (180, 20, 20)
 
 
 class CoordinatorClient:
@@ -107,53 +101,10 @@ class CoordinatorClient:
 
 
 def load_face(screen: pygame.Surface) -> pygame.Surface:
-    """Load the default face without stretching it on different screens."""
+    """Load and scale the default face relative to this file, not the CWD."""
     image_path = Path(__file__).parent / "Expressions" / "Happy_Affection.png"
     image = pygame.image.load(str(image_path))
-    source_width, source_height = image.get_size()
-    target_width, target_height = screen.get_size()
-    scale = min(target_width / source_width, target_height / source_height)
-    size = (int(source_width * scale), int(source_height * scale))
-    return pygame.transform.smoothscale(image, size)
-
-
-def draw_panel(
-    screen: pygame.Surface,
-    rect: pygame.Rect,
-    colour: tuple[int, int, int],
-) -> None:
-    """Draw a soft card used for readable text over the face."""
-    shadow = rect.move(0, 7)
-    pygame.draw.rect(screen, (206, 181, 193), shadow, border_radius=24)
-    pygame.draw.rect(screen, colour, rect, border_radius=24)
-
-
-def draw_centered_text(
-    screen: pygame.Surface,
-    text: str,
-    font: pygame.font.Font,
-    colour: tuple[int, int, int],
-    centre: tuple[int, int],
-) -> None:
-    rendered = font.render(text, True, colour)
-    screen.blit(rendered, rendered.get_rect(center=centre))
-
-
-def draw_visitor_badge(
-    screen: pygame.Surface,
-    user_id: str,
-    font: pygame.font.Font,
-) -> None:
-    """Show the active visitor in the same place on both robot displays."""
-    visible_user_id = user_id if len(user_id) <= 28 else f"{user_id[:25]}..."
-    label = f"Visitor: {visible_user_id}"
-    rendered = font.render(label, True, INK)
-    badge = rendered.get_rect()
-    badge.inflate_ip(36, 20)
-    badge.midtop = (screen.get_width() // 2, 24)
-    pygame.draw.rect(screen, WHITE, badge, border_radius=16)
-    pygame.draw.rect(screen, (220, 224, 231), badge, width=2, border_radius=16)
-    screen.blit(rendered, rendered.get_rect(center=badge.center))
+    return pygame.transform.scale(image, screen.get_size())
 
 
 def draw_wrapped_text(
@@ -194,13 +145,14 @@ def is_handover_state(state: dict) -> bool:
 def has_active_booking(state: dict) -> bool:
     """Return true after the Coordinator has accepted a visitor task."""
     stage = str(state.get("current_stage", "")).strip()
-    task_complete = (
-        stage == "task_complete" or state.get("state") == "task_complete"
-    )
+    return bool(state.get("user_id")) and stage != "waiting_for_destination"
+
+
+def is_task_complete(state: dict) -> bool:
+    """Return true once the Coordinator reports that guidance has finished."""
     return (
-        bool(state.get("user_id"))
-        and stage != "waiting_for_destination"
-        and not task_complete
+        str(state.get("current_stage", "")).strip() == "task_complete"
+        or str(state.get("state", "")).strip() == "task_complete"
     )
 
 
@@ -233,20 +185,14 @@ def main() -> None:
 
     pygame.init()
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    pygame.display.set_caption(f"MediBot {arguments.role.title()} Face")
+    pygame.display.set_caption(f"NaviBot {arguments.role.title()} Face")
     clock = pygame.time.Clock()
     face = load_face(screen)
     width, height = screen.get_size()
     heading_font = pygame.font.SysFont(None, 64)
     button_font = pygame.font.SysFont(None, 48)
-    body_font = pygame.font.SysFont(None, 38)
-    small_font = pygame.font.SysFont(None, 28)
-    continue_button = pygame.Rect(
-        width // 8,
-        int(height * 0.78),
-        width * 3 // 4,
-        86,
-    )
+    continue_button = pygame.Rect(width // 8, height * 3 // 4, width * 3 // 4, 92)
+    destination_button = pygame.Rect(width // 3, height * 3 // 4, width // 3, 78)
 
     state: dict = (
         {
@@ -259,6 +205,8 @@ def main() -> None:
     )
     error_message = ""
     continue_requested = False
+    destination_started_at: float | None = None
+    destination_confirmed = False
     running = True
 
     while running:
@@ -285,6 +233,17 @@ def main() -> None:
         user_id = str(state.get("user_id") or "visitor")
         booking_active = has_active_booking(state)
         at_handover = is_handover_state(state)
+        task_complete = is_task_complete(state)
+        if task_complete and destination_started_at is None:
+            destination_started_at = time.monotonic()
+        elif not task_complete:
+            destination_started_at = None
+            destination_confirmed = False
+
+        destination_timed_out = (
+            destination_started_at is not None
+            and time.monotonic() - destination_started_at >= 10
+        )
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (
@@ -303,82 +262,61 @@ def main() -> None:
                     client.request_visitor_ready(user_id)
                 continue_requested = True
                 error_message = ""
+            elif (
+                event.type == pygame.MOUSEBUTTONDOWN
+                and task_complete
+                and not destination_confirmed
+                and destination_button.collidepoint(event.pos)
+            ):
+                destination_confirmed = True
 
-        screen.fill(WHITE)
-        if not booking_active:
-            idle_card = pygame.Rect(width // 2 - 230, height // 2 - 115, 460, 230)
-            draw_panel(screen, idle_card, WHITE)
-            pygame.draw.circle(screen, FACE_PINK, (width // 2, height // 2 - 45), 33)
-            pygame.draw.circle(screen, GREEN, (width // 2 + 25, height // 2 - 70), 10)
-            draw_centered_text(
-                screen, "Idle", heading_font, INK, (width // 2, height // 2 + 25)
-            )
-            draw_centered_text(
-                screen,
-                "Waiting for a new booking",
-                small_font,
-                SUBTLE_INK,
-                (width // 2, height // 2 + 68),
-            )
-        elif not at_handover:
-            screen.fill(FACE_PINK)
-            screen.blit(face, face.get_rect(center=(width // 2, height // 2)))
-
-        if booking_active:
-            draw_visitor_badge(screen, user_id, small_font)
-
-        if booking_active and at_handover and arguments.role == "jarvis":
-            draw_centered_text(
-                screen,
-                "Handover",
-                body_font,
-                INK,
-                (width // 2, height // 2 - 72),
-            )
+        screen.fill((255, 255, 255))
+        if task_complete and not destination_confirmed and not destination_timed_out:
             draw_wrapped_text(
                 screen,
-                "Please enter the elevator. The next robot will be waiting for you upstairs.",
-                body_font,
-                SUBTLE_INK,
-                (width // 2, height // 2 + 10),
+                "You have arrived at the Fashion department.",
+                heading_font,
+                (0, 0, 0),
+                (width // 2, height // 2),
+                width * 3 // 4,
+            )
+            pygame.draw.rect(screen, (120, 220, 140), destination_button, border_radius=18)
+            confirmed_label = button_font.render("Confirm", True, (0, 0, 0))
+            screen.blit(confirmed_label, confirmed_label.get_rect(center=destination_button.center))
+        elif not booking_active or task_complete:
+            idle_label = heading_font.render("Idle", True, (0, 0, 0))
+            screen.blit(idle_label, idle_label.get_rect(center=(width // 2, height // 2)))
+        elif not at_handover and not error_message:
+            screen.blit(face, (0, 0))
+            name_label = button_font.render(user_id, True, (0, 0, 0))
+            screen.blit(name_label, name_label.get_rect(midtop=(width // 2, 28)))
+
+        if booking_active and at_handover and arguments.role == "jarvis":
+            draw_wrapped_text(
+                screen,
+                "Please enter the elevator. NaviBot will meet you upstairs.",
+                heading_font,
+                (0, 0, 0),
+                (width // 2, height * 3 // 4),
                 width * 3 // 4,
             )
         elif booking_active and at_handover and arguments.role == "gem":
             if continue_requested:
-                draw_centered_text(
-                    screen,
-                    "Starting your route...",
-                    body_font,
-                    INK,
-                    (width // 2, height // 2),
-                )
+                message = "Continuing your route…"
+                button_colour = (190, 220, 255)
             else:
-                draw_centered_text(
-                    screen,
-                    f"Waiting for {user_id}",
-                    body_font,
-                    INK,
-                    (width // 2, height // 2 - 74),
-                )
-                draw_centered_text(
-                    screen,
-                    "to continue the route",
-                    small_font,
-                    SUBTLE_INK,
-                    (width // 2, height // 2 - 28),
-                )
-                pygame.draw.rect(screen, GREEN, continue_button, border_radius=18)
-                rendered = button_font.render("Continue route", True, INK)
-                screen.blit(rendered, rendered.get_rect(center=continue_button.center))
+                message = "Ready to follow NaviBot?"
+                button_colour = (120, 220, 140)
+            pygame.draw.rect(screen, button_colour, continue_button, border_radius=18)
+            rendered = button_font.render(message, True, (0, 0, 0))
+            screen.blit(rendered, rendered.get_rect(center=continue_button.center))
 
         if error_message:
-            error_panel = pygame.Rect(20, height - 72, width - 40, 46)
-            pygame.draw.rect(screen, WHITE, error_panel, border_radius=16)
             draw_wrapped_text(
                 screen,
                 error_message,
-                small_font,
-                ERROR,
+                pygame.font.SysFont(None, 28),
+                (180, 20, 20),
                 (width // 2, height - 45),
                 width - 40,
             )

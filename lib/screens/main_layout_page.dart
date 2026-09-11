@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../session_tracker.dart';
 import 'search_by_map_page.dart';
-import 'search_by_ward_page.dart';
+import 'search_by_department_page.dart';
 
 class MainLayoutPage extends StatefulWidget {
   const MainLayoutPage({super.key});
@@ -17,11 +17,12 @@ class _MainLayoutPageState extends State<MainLayoutPage> {
     'G-1': _FloorStatus(available: 3, inUse: 1),
     'G-2': _FloorStatus(available: 2, inUse: 2),
   };
+  static const _retiredFloors = {'G-G', 'G-3'};
 
   String _selectedFloor = 'G-1';
 
   void _selectFloor(String floor) {
-    if (floor == _selectedFloor) return;
+    if (_retiredFloors.contains(floor) || floor == _selectedFloor) return;
     SessionTracker.instance.recordClick('Home floor change: $floor');
     setState(() => _selectedFloor = floor);
   }
@@ -48,7 +49,7 @@ class _MainLayoutPageState extends State<MainLayoutPage> {
                         SessionTracker.instance.recordClick('Department');
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => const SearchByWardPage(),
+                            builder: (_) => const SearchByDepartmentPage(),
                           ),
                         );
                       },
@@ -59,7 +60,7 @@ class _MainLayoutPageState extends State<MainLayoutPage> {
                     child: _buildActionCard(
                       icon: Icons.map_outlined,
                       title: 'Search by Map',
-                      description: 'Browse all hospital floors',
+                      description: 'Browse all available floors',
                       onPressed: () {
                         SessionTracker.instance.recordClick('Map');
                         Navigator.of(context).push(
@@ -112,20 +113,27 @@ class _MainLayoutPageState extends State<MainLayoutPage> {
                     const SizedBox(height: 10),
                     Wrap(
                       spacing: 8,
-                      children: ['G-1', 'G-2']
-                          .map(
-                            (floor) => ChoiceChip(
+                      children: ['G-G', 'G-1', 'G-2', 'G-3']
+                          .map((floor) {
+                            final retired = _retiredFloors.contains(floor);
+                            final selected = floor == _selectedFloor;
+                            return ChoiceChip(
                               label: Text(floor),
-                              selected: floor == _selectedFloor,
-                              onSelected: (_) => _selectFloor(floor),
+                              selected: selected,
+                              onSelected: retired ? null : (_) => _selectFloor(floor),
                               selectedColor: _primaryBlue,
                               checkmarkColor: Colors.white,
+                              disabledColor: Colors.grey.shade300,
                               labelStyle: TextStyle(
-                                color: floor == _selectedFloor ? Colors.white : _primaryBlue,
+                                color: retired
+                                    ? Colors.grey.shade600
+                                    : selected
+                                    ? Colors.white
+                                    : _primaryBlue,
                                 fontWeight: FontWeight.w600,
                               ),
-                            ),
-                          )
+                            );
+                          })
                           .toList(),
                     ),
                     const SizedBox(height: 8),
@@ -183,7 +191,7 @@ class _MainLayoutPageState extends State<MainLayoutPage> {
                       ],
                     ),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 16),
                   const Text(
                     'Have a question?',
                     style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF0D47A1)),

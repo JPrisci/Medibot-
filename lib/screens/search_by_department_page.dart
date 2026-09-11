@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../session_tracker.dart';
 import 'search_by_map_page.dart';
 
-class SearchByWardPage extends StatelessWidget {
-  const SearchByWardPage({super.key});
+class SearchByDepartmentPage extends StatelessWidget {
+  const SearchByDepartmentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class SearchByWardPage extends StatelessWidget {
                                   SessionTracker.instance.recordClick(department);
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (_) => SearchByMapPage(selectedWard: department),
+                                      builder: (_) => SearchByMapPage(selectedDepartment: department),
                                     ),
                                   );
                                 }
