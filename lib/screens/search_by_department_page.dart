@@ -61,12 +61,16 @@ class SearchByDepartmentPage extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     final crossAxisCount = constraints.maxWidth > 900 ? 4 : 2;
+                    final isPortrait =
+                        MediaQuery.orientationOf(context) == Orientation.portrait;
                     return GridView.count(
                       crossAxisCount: crossAxisCount,
                       mainAxisSpacing: 16,
                       crossAxisSpacing: 16,
                       childAspectRatio: 1.3,
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: isPortrait
+                          ? const AlwaysScrollableScrollPhysics()
+                          : const NeverScrollableScrollPhysics(),
                       children: departments.map((department) {
                         final enabled = department == departments.first;
                         return FilledButton(

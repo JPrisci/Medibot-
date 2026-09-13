@@ -13,6 +13,23 @@ class SessionRecordStore {
     await prefs.setStringList(_key, existing);
   }
 
+  /// Updates a previously saved session while retaining records from other sessions.
+  static Future<void> updateRecord(
+    int sessionId,
+    Map<String, dynamic> updates,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final existing = prefs.getStringList(_key) ?? <String>[];
+    for (var index = 0; index < existing.length; index += 1) {
+      final record = Map<String, dynamic>.from(jsonDecode(existing[index]) as Map);
+      if (record['session_id'] != sessionId) continue;
+      record.addAll(updates);
+      existing[index] = jsonEncode(record);
+      await prefs.setStringList(_key, existing);
+      return;
+    }
+  }
+
   /// Returns all stored records, oldest first.
   static Future<List<Map<String, dynamic>>> getAllRecords() async {
     final prefs = await SharedPreferences.getInstance();

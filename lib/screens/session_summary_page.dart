@@ -31,8 +31,10 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
   String? _resetError;
   Timer? _taskStateTimer;
   Timer? _busyMessageTimer;
-  late final int _sessionClickCount;
-  late final String _sessionElapsedText;
+  late final Future<void> _recordSessionFuture;
+  int? _sessionId;
+  int _sessionClickCount = 0;
+  String _sessionElapsedText = '00:00';
 
   Uri get _uxStateUrl => Uri.parse(
     _routeApiUrl,
@@ -48,7 +50,7 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
     final tracker = SessionTracker.instance;
     _sessionClickCount = tracker.clickCount.value;
     _sessionElapsedText = tracker.elapsedText;
-    WidgetsBinding.instance.addPostFrameCallback((_) => _recordSession());
+    _recordSessionFuture = _recordSession();
     _checkTaskState();
     _taskStateTimer = Timer.periodic(
       const Duration(seconds: 2),
@@ -87,7 +89,10 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
       _taskStateTimer?.cancel();
       _busyMessageTimer?.cancel();
       SessionTracker.instance.stop();
+      _sessionClickCount = SessionTracker.instance.clickCount.value;
+      _sessionElapsedText = SessionTracker.instance.elapsedText;
       setState(() => _taskComplete = true);
+      unawaited(_completeSessionRecord());
     } on http.ClientException {
       // Keep the button disabled until the Coordinator is available again.
     } on TimeoutException {
@@ -103,15 +108,41 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
     setState(() => _exporting = true);
     try {
       final sessionId = await SessionIdProvider.nextId();
+      _sessionId = sessionId;
       await SessionRecordStore.addRecord({
         'session_id': sessionId,
         'click_count': _sessionClickCount,
         'elapsed_time': _sessionElapsedText,
+        'booking_time_seconds': SessionTracker.instance.bookingTimeSeconds,
+        'booking_retries': SessionTracker.instance.bookingRetries,
+        'cancel_count': SessionTracker.instance.routeCancellations,
+        'route_selected': 'Fashion',
+        'completion_status': 'in_progress',
       });
     } catch (error) {
       _exportError = error.toString();
     } finally {
       if (mounted) setState(() => _exporting = false);
+    }
+  }
+
+  Future<void> _completeSessionRecord() async {
+    await _recordSessionFuture;
+    final sessionId = _sessionId;
+    if (sessionId == null) return;
+
+    try {
+      await SessionRecordStore.updateRecord(sessionId, {
+        'click_count': _sessionClickCount,
+        'elapsed_time': _sessionElapsedText,
+        'booking_time_seconds': SessionTracker.instance.bookingTimeSeconds,
+        'booking_retries': SessionTracker.instance.bookingRetries,
+        'cancel_count': SessionTracker.instance.routeCancellations,
+        'route_selected': 'Fashion',
+        'completion_status': 'completed',
+      });
+    } catch (error) {
+      if (mounted) setState(() => _exportError = error.toString());
     }
   }
 

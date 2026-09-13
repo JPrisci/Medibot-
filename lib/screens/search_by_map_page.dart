@@ -53,6 +53,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
 
   void _cancelRoute() {
     SessionTracker.instance.recordClick('Cancel route');
+    SessionTracker.instance.recordRouteCancellation();
     setState(() => _showRoute = false);
   }
 
@@ -106,18 +107,21 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     try {
       await _publishRouteRequest(userId);
     } on _RouteApiException catch (error) {
+      SessionTracker.instance.recordBookingRetry();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Could not send route request: ${error.message}')),
       );
       return;
     } on http.ClientException {
+      SessionTracker.instance.recordBookingRetry();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Could not connect to the route API.')),
       );
       return;
     } on TimeoutException {
+      SessionTracker.instance.recordBookingRetry();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('The route request timed out. Please try again.')),
@@ -126,6 +130,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     }
 
     SessionTracker.instance.recordClick('Booking confirmed');
+    SessionTracker.instance.markBookingConfirmed();
     _finishSession();
   }
 
@@ -411,9 +416,9 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
                       ),
                     if (_selectedFloor == 'G-1')
                       Positioned(
-                        // The user's current position: (41.7%, 20%) of G-1.
-                        left: (mapWidth * 0.417) - 42,
-                        top: (mapHeight * 0.200) - 18,
+                        // The user's current position: (22.7%, 65.9%) of G-1.
+                        left: (mapWidth * 0.227) - 42,
+                        top: (mapHeight * 0.659) - 18,
                         child: Semantics(
                           label: 'You are here',
                           child: const Tooltip(
@@ -504,8 +509,6 @@ class _RoutePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final points = floor == 'G-1'
         ? const [
-            Offset(0.417, 0.200),
-            Offset(0.227, 0.200),
             Offset(0.227, 0.659),
             Offset(0.452, 0.659),
             Offset(0.452, 0.930),

@@ -19,6 +19,9 @@ class SessionTracker {
   /// This is deliberately named `userId` so outgoing API payloads use the
   /// agreed `user_id` field rather than the older UI-specific "name" wording.
   String? userId;
+  Duration? _bookingElapsed;
+  int bookingRetries = 0;
+  int routeCancellations = 0;
   Timer? _timer;
   bool _running = false;
 
@@ -40,12 +43,30 @@ class SessionTracker {
     _timer = null;
   }
 
+  /// Records the time taken to make the first successful booking request.
+  void markBookingConfirmed() {
+    _bookingElapsed ??= elapsed.value;
+  }
+
+  void recordBookingRetry() {
+    bookingRetries += 1;
+  }
+
+  void recordRouteCancellation() {
+    routeCancellations += 1;
+  }
+
+  int get bookingTimeSeconds => (_bookingElapsed ?? elapsed.value).inSeconds;
+
   void reset() {
     // Goes back to initial values.
     stop();
     clickCount.value = 0;
     elapsed.value = Duration.zero;
     userId = null;
+    _bookingElapsed = null;
+    bookingRetries = 0;
+    routeCancellations = 0;
   }
 
   void recordClick([String? source]) {

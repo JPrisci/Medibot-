@@ -97,7 +97,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 onChanged: (_) => setState(() {}),
                 onSubmitted: (_) => _startSession(),
                 decoration: const InputDecoration(
-                  labelText: 'Your name or participant ID',
+                  labelText: 'Your name',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.person_outline_rounded),
                 ),
