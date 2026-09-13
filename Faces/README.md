@@ -18,12 +18,20 @@ Run this on Gem's screen:
 python3 faces.py --role gem --api-base-url http://10.11.29.129:8000
 ```
 
-When handover is ready, Jarvis tells the visitor to enter the elevator. Gem
+When handover is ready, Jarvis tells the visitor to enter the elevator and press
+the second-floor button. A second NaviBot, Gem, meets the visitor upstairs and
 shows a **Ready to follow NaviBot?** button. Tapping Gem's button sends the visitor-ready request
 to the Coordinator so Gem can continue the route.
 
 When the Coordinator reports `task_complete`, the display shows an arrival message with a Confirm button.
 It returns to Idle after the button is pressed or after ten seconds of inactivity.
+
+## Error fallbacks
+
+If the Coordinator cannot be reached, the face shows a reconnecting message
+instead of a raw network exception and continues polling. After three failed
+polls it also shows a non-functional **Call staff - we'll be with you shortly**
+button. Both disappear automatically after the next successful poll.
 
 ## Test without robots
 

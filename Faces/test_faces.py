@@ -20,6 +20,10 @@ GREEN = (120, 220, 140)
 PALE_BLUE = (190, 220, 255)
 ERROR = (180, 20, 20)
 WINDOW_SIZE = (1280, 720)
+CONNECTION_FALLBACK = (
+    "Please stand by while NaviBot tries to reconnect."
+)
+CALL_STAFF_LABEL = "Call staff - we'll be with you shortly"
 
 
 def load_face(screen: pygame.Surface) -> pygame.Surface:
@@ -76,6 +80,7 @@ def main() -> None:
     clock = pygame.time.Clock()
     heading_font = pygame.font.SysFont(None, 62)
     body_font = pygame.font.SysFont(None, 42)
+    staff_font = pygame.font.SysFont(None, 34)
     name_font = pygame.font.SysFont(None, 48)
     face = load_face(screen)
     width, height = screen.get_size()
@@ -90,7 +95,8 @@ def main() -> None:
         "Gem continuing message",
         "Destination reached",
         "Idle",
-        "Connection error",
+        "Reconnecting",
+        "Connection needs staff",
     )
     idle_state = states.index("Idle")
     selected = 0
@@ -142,7 +148,7 @@ def main() -> None:
         elif state == "Jarvis elevator instruction":
             draw_wrapped_text(
                 screen,
-                "Please enter the elevator. NaviBot will meet you upstairs.",
+                "Please enter the elevator. Press the button for the second floor. A second NaviBot, Gem, will meet you to continue your route.",
                 heading_font,
                 INK,
                 (width // 2, height // 2),
@@ -156,15 +162,27 @@ def main() -> None:
             pygame.draw.rect(screen, PALE_BLUE, continue_button, border_radius=18)
             label = body_font.render("Continuing your route...", True, INK)
             screen.blit(label, label.get_rect(center=continue_button.center))
-        else:
+        elif state == "Reconnecting":
             draw_wrapped_text(
                 screen,
-                "Coordinator unavailable. Please ask a staff member for help.",
+                CONNECTION_FALLBACK,
                 body_font,
                 ERROR,
                 (width // 2, height // 2),
                 width - 220,
             )
+        else:
+            draw_wrapped_text(
+                screen,
+                CONNECTION_FALLBACK,
+                body_font,
+                ERROR,
+                (width // 2, height // 2),
+                width - 220,
+            )
+            pygame.draw.rect(screen, PALE_BLUE, continue_button, border_radius=18)
+            label = staff_font.render(CALL_STAFF_LABEL, True, INK)
+            screen.blit(label, label.get_rect(center=continue_button.center))
 
         # Re-draw controls after the screen content so they remain clickable.
         draw_arrow_button(screen, (42, height // 2), -1)

@@ -29,6 +29,11 @@ import pygame
 
 POLL_INTERVAL_SECONDS = 1.0
 HANDOVER_STAGES = {"waiting_for_visitor_ready", "handover_ready"}
+CONNECTION_FALLBACK = (
+    "Please stand by while NaviBot tries to reconnect."
+)
+CALL_STAFF_LABEL = "Call staff - we'll be with you shortly"
+CONNECTION_ERROR_POLLS_BEFORE_STAFF = 3
 
 
 class CoordinatorClient:
@@ -191,8 +196,10 @@ def main() -> None:
     width, height = screen.get_size()
     heading_font = pygame.font.SysFont(None, 64)
     button_font = pygame.font.SysFont(None, 48)
+    staff_font = pygame.font.SysFont(None, 36)
     continue_button = pygame.Rect(width // 8, height * 3 // 4, width * 3 // 4, 92)
     destination_button = pygame.Rect(width // 3, height * 3 // 4, width // 3, 78)
+    staff_button = pygame.Rect(width // 8, height * 3 // 4, width * 3 // 4, 92)
 
     state: dict = (
         {
@@ -204,6 +211,7 @@ def main() -> None:
         else {}
     )
     error_message = ""
+    connection_error_polls = 0
     continue_requested = False
     destination_started_at: float | None = None
     destination_confirmed = False
@@ -216,6 +224,8 @@ def main() -> None:
                 if client is None:
                     break
                 state = client.state_queue.get_nowait()
+                error_message = ""
+                connection_error_polls = 0
                 if not is_handover_state(state):
                     continue_requested = False
         except queue.Empty:
@@ -225,6 +235,8 @@ def main() -> None:
                 if client is None:
                     break
                 error_message = client.error_queue.get_nowait()
+                if error_message.startswith("Coordinator unavailable"):
+                    connection_error_polls += 1
                 if error_message.startswith("Could not continue route"):
                     continue_requested = False
         except queue.Empty:
@@ -271,7 +283,20 @@ def main() -> None:
                 destination_confirmed = True
 
         screen.fill((255, 255, 255))
-        if task_complete and not destination_confirmed and not destination_timed_out:
+        if error_message:
+            draw_wrapped_text(
+                screen,
+                CONNECTION_FALLBACK,
+                heading_font,
+                (180, 20, 20),
+                (width // 2, height // 2),
+                width * 3 // 4,
+            )
+            if connection_error_polls >= CONNECTION_ERROR_POLLS_BEFORE_STAFF:
+                pygame.draw.rect(screen, (190, 220, 255), staff_button, border_radius=18)
+                staff_label = staff_font.render(CALL_STAFF_LABEL, True, (0, 0, 0))
+                screen.blit(staff_label, staff_label.get_rect(center=staff_button.center))
+        elif task_complete and not destination_confirmed and not destination_timed_out:
             draw_wrapped_text(
                 screen,
                 "You have arrived at the Fashion department.",
@@ -291,16 +316,16 @@ def main() -> None:
             name_label = button_font.render(user_id, True, (0, 0, 0))
             screen.blit(name_label, name_label.get_rect(midtop=(width // 2, 28)))
 
-        if booking_active and at_handover and arguments.role == "jarvis":
+        if not error_message and booking_active and at_handover and arguments.role == "jarvis":
             draw_wrapped_text(
                 screen,
-                "Please enter the elevator. NaviBot will meet you upstairs.",
+                "Please enter the elevator. Press the button for the second floor. A second NaviBot, Gem, will meet you to continue your route.",
                 heading_font,
                 (0, 0, 0),
                 (width // 2, height * 3 // 4),
                 width * 3 // 4,
             )
-        elif booking_active and at_handover and arguments.role == "gem":
+        elif not error_message and booking_active and at_handover and arguments.role == "gem":
             if continue_requested:
                 message = "Continuing your route…"
                 button_colour = (190, 220, 255)
@@ -310,16 +335,6 @@ def main() -> None:
             pygame.draw.rect(screen, button_colour, continue_button, border_radius=18)
             rendered = button_font.render(message, True, (0, 0, 0))
             screen.blit(rendered, rendered.get_rect(center=continue_button.center))
-
-        if error_message:
-            draw_wrapped_text(
-                screen,
-                error_message,
-                pygame.font.SysFont(None, 28),
-                (180, 20, 20),
-                (width // 2, height - 45),
-                width - 40,
-            )
 
         pygame.display.flip()
 
