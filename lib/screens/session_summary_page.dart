@@ -25,10 +25,12 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
 
   bool _exporting = false;
   bool _taskComplete = false;
+  bool _showBusyMessage = false;
   bool _resetting = false;
   String? _exportError;
   String? _resetError;
   Timer? _taskStateTimer;
+  Timer? _busyMessageTimer;
   late final int _sessionClickCount;
   late final String _sessionElapsedText;
 
@@ -52,11 +54,17 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
       const Duration(seconds: 2),
       (_) => _checkTaskState(),
     );
+    _busyMessageTimer = Timer(const Duration(seconds: 10), () {
+      if (mounted && !_taskComplete) {
+        setState(() => _showBusyMessage = true);
+      }
+    });
   }
 
   @override
   void dispose() {
     _taskStateTimer?.cancel();
+    _busyMessageTimer?.cancel();
     super.dispose();
   }
 
@@ -77,6 +85,7 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
       if (!taskFinished || !mounted) return;
 
       _taskStateTimer?.cancel();
+      _busyMessageTimer?.cancel();
       SessionTracker.instance.stop();
       setState(() => _taskComplete = true);
     } on http.ClientException {
@@ -178,7 +187,9 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
                     Text(
                       _taskComplete
                           ? 'You have arrived at the Fashion department'
-                          : 'NaviBot is on its way',
+                          : _showBusyMessage
+                              ? 'NaviBot is currently in use'
+                              : 'NaviBot is on its way',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -197,8 +208,10 @@ class _SessionSummaryPageState extends State<SessionSummaryPage> {
                         style: const TextStyle(fontSize: 20),
                       ),
                     ] else
-                      const Text(
-                        'Please wait for NaviBot. When it arrives, follow it to the Fashion department.',
+                      Text(
+                        _showBusyMessage
+                            ? 'NaviBot is currently guiding a visitor. Please wait for the next available NaviBot.'
+                            : 'Please wait for NaviBot. When it arrives, follow it to the Fashion department.',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16),
                       ),
