@@ -20,7 +20,7 @@ python3 faces.py --role gem --api-base-url http://10.11.29.129:8000
 
 When handover is ready, Jarvis tells the visitor to enter the elevator and press
 the second-floor button. A second NaviBot, Gem, meets the visitor upstairs and
-shows a **Ready to follow NaviBot?** button. Tapping Gem's button sends the visitor-ready request
+shows a **Ready to follow NaviBot?** button. The visitor must tap Gem's button to continue; it sends the visitor-ready request
 to the Coordinator so Gem can continue the route.
 
 When the Coordinator reports `task_complete`, the display shows an arrival message with a Confirm button.

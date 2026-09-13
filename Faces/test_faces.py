@@ -148,7 +148,7 @@ def main() -> None:
         elif state == "Jarvis elevator instruction":
             draw_wrapped_text(
                 screen,
-                "Please enter the elevator. Press the button for the second floor. A second NaviBot, Gem, will meet you to continue your route.",
+                "Please enter the elevator and press the button for the second floor. A second NaviBot, Gem, will meet you upstairs. Press the button on Gem's screen to continue your route.",
                 heading_font,
                 INK,
                 (width // 2, height // 2),
