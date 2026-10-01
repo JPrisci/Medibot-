@@ -724,6 +724,22 @@ class GBlockRouteRunner(Node):
             ),
         ]
 
+        # GEM_START_ROLL_V1
+        gem_start_roll = (
+            start == "LEVEL2_ELEVATOR"
+            and destination == "DIGITAL_LIBRARY"
+        )
+        if gem_start_roll:
+            if not math.isclose(
+                normalize_degrees(self.default_start_heading_deg - 180.0),
+                0.0, abs_tol=0.01,
+            ):
+                raise ValueError("Gem must use the map's 180-degree starting heading.")
+            steps.extend([
+                ("drive_action", 0.10, 0.05),
+                ("stop",),
+            ])
+
         for current_node, next_node in zip(
             node_path,
             node_path[1:],
@@ -731,6 +747,19 @@ class GBlockRouteRunner(Node):
             edge = self.topological_graph[
                 current_node
             ][next_node]
+
+            if gem_start_roll and current_node == start:
+                if (
+                    next_node != "LEVEL2_TURN"
+                    or not math.isclose(float(edge["distance"]), 7.40, abs_tol=0.001)
+                    or not math.isclose(
+                        normalize_degrees(float(edge["heading_deg"])),
+                        0.0, abs_tol=0.01,
+                    )
+                ):
+                    raise ValueError("Expected Gem's first map edge to be 7.40 m at 0 degrees.")
+                edge = dict(edge)
+                edge["distance"] = 7.50
 
             steps.append(
                 (
@@ -757,6 +786,19 @@ class GBlockRouteRunner(Node):
                 (
                     "checkpoint",
                     self.node_labels[next_node],
+                )
+            )
+
+        final_turn_deg = {
+            "ELEVATOR_2": 180.0,
+            "DIGITAL_LIBRARY": 180.0,
+        }.get(destination)
+
+        if final_turn_deg is not None:
+            steps.append(
+                (
+                    "turn_deg",
+                    final_turn_deg,
                 )
             )
 

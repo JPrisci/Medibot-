@@ -1,6 +1,6 @@
 {
-  "default_start_node": "IOT_LAB",
-  "default_start_heading_deg": 0.0,
+  "default_start_node": "LEVEL2_ELEVATOR",
+  "default_start_heading_deg": 180.0,
   "landmarks": [
     "IOT_LAB",
     "G1.14",
