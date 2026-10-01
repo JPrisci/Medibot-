@@ -760,6 +760,19 @@ class GBlockRouteRunner(Node):
                 )
             )
 
+        final_turn_deg = {
+            "ELEVATOR_2": 180.0,
+            "DIGITAL_LIBRARY": 180.0,
+        }.get(destination)
+
+        if final_turn_deg is not None:
+            steps.append(
+                (
+                    "turn_deg",
+                    final_turn_deg,
+                )
+            )
+
         steps.append(
             (
                 "say",
