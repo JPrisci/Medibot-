@@ -338,7 +338,7 @@ def main() -> None:
         if not error_message and booking_active and at_handover and arguments.role == "jarvis":
             draw_wrapped_text(
                 screen,
-                "Please enter the elevator and press the button for the second floor. A second NaviBot, Gem, will meet you upstairs. Press the button on Gem's screen to continue your route.",
+                "Please enter the elevator and traverse to the second floor. A second NaviBot will meet you upstairs.",
                 heading_font,
                 (0, 0, 0),
                 (width // 2, height * 3 // 4),
