@@ -7,7 +7,7 @@
 # /medibot/gem/local_action
 #
 # It validates and interprets the action message, but it does not move the robot.
-# Later, this node can become an interface to navigation or robot behaviour code.
+# Recognised actions are logged without triggering navigation or robot behaviour.
 
 import json
 
