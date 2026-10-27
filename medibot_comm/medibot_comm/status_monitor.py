@@ -16,8 +16,9 @@ class StatusMonitor(Node):
         # Expected robot names are "jarvis" and "gem".
         self.latest_status = {}
 
-        # If a robot has not sent a message within this many seconds,
-        # its status is treated as STALE.
+        # Mark a robot's status as STALE if no new status message
+        # has been received for this many seconds.
+        # This does not check whether the Navigation process is still running.
         self.stale_timeout_seconds = 5.0
 
         # Store the previous decision so changes are easy to see
