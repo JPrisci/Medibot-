@@ -646,49 +646,47 @@ The Navigation component may run additional Navigation-specific processes on the
 
 ---
 
+
 # Component Responsibilities
 
 ## Communication
 
-Communication decides:
+Communication handles high-level visitor-task coordination, including:
 
-```text
-which robot should guide
-where the high-level route should go
-when handover is possible
-when the next task stage may begin
-```
+- assigning Jarvis to the first guidance stage and Gem to the second in the current prototype;
+- specifying the transfer point and passing the selected final destination to Navigation;
+- checking whether the robot handover conditions are satisfied; and
+- managing when the visitor task can progress to the next stage.
+
+Communication does not calculate or execute physical robot routes.
 
 ## Navigation
 
-Navigation decides:
+Navigation is responsible for how each robot physically reaches its requested destination.
 
-```text
-how the robot physically reaches that destination
-```
+This includes:
 
-Navigation therefore owns:
+- executing the configured robot routes;
+- using odometry to control movement distances and turns;
+- obstacle detection and handling;
+- Create3 movement and control; and
+- Navigation-side command bridges.
 
-* route planning;
-* route execution;
-* odometry;
-* movement distances and turns;
-* obstacle handling;
-* Create3 movement/control; and
-* Navigation-side command bridges.
+Navigation reports important route events back to Communication, allowing the Coordinator to update the visitor task.
 
 ## UX
 
-UX owns:
+UX is responsible for:
 
-* kiosk/tablet presentation;
-* destination-selection screens;
-* Confirm/Continue interactions;
-* robot screen presentation;
-* visitor-facing instructions; and
-* visual design.
+- kiosk/tablet presentation;
+- destination-selection screens;
+- Confirm/Continue interactions;
+- robot screen presentation;
+- visitor-facing instructions; and
+- visual design.
 
-Communication provides state and task interfaces but does not control how these are displayed.
+Communication provides task states and interfaces to UX but does not control how these are presented.
+  
 
 ---
 
