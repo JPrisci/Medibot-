@@ -50,8 +50,7 @@ class LocalActionSubscriber(Node):
             f"/medibot/{self.robot_name}/local_action"
         )
 
-        # Store the previous action so an identical repeated message does not
-        # repeatedly restart the same future behaviour.
+        # Store the previous action to ignore identical consecutive messages.
         self.last_action = None
 
         self.subscription = self.create_subscription(
