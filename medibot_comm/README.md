@@ -1,6 +1,9 @@
+
 # MediBot Communication
 
 ROS 2 communication and high-level task coordination component for the MediBot multi-robot visitor guidance project.
+
+For an overview of the completed prototype, its limitations and future development, see [Project Overview](PROJECT_OVERVIEW.md).
 
 This package coordinates the visitor task between:
 
@@ -69,22 +72,19 @@ destination_selected
         ↓
 TaskCoordinator
         ↓
-Jarvis start_route → ELEVATOR_1
+Jarvis start_route → ELEVATOR_2
         ↓
 Jarvis arrived_at_transfer_point
         ↓
 Jarvis = handover_requested
         ↓
-Gem arrived_at_receiving_point
+Gem arrived_at_receiving_point (LEVEL2_ELEVATOR)
         ↓
 Gem = handover_ready
         ↓
 StatusMonitor
         ↓
 handover_possible
-        ↓
-Jarvis → prepare_handover
-Gem    → prepare_receive
         ↓
 UX state = handover_ready
         ↓
@@ -98,10 +98,12 @@ Gem arrived_at_destination
         ↓
 task_complete
         ↓
-task_reset
+Task reset when requested through UX
         ↓
 waiting_for_destination
 ```
+
+In parallel with the main task flow, the robot-side Communication nodes receive handover decisions and publish robot-specific local actions such as `prepare_handover` and `prepare_receive`. These actions are currently processed and logged at the software level.
 
 ---
 
@@ -270,7 +272,7 @@ while Gem produces:
 prepare_receive
 ```
 
-Robot role is selected using the `robot_name` ROS parameter.
+Robot role is selected using the `robot_name` ROS parameter. The resulting actions are published on the matching `/medibot/<robot_name>/local_action` topic.
 
 ---
 
@@ -292,9 +294,9 @@ or:
 
 depending on the configured robot.
 
-It validates and interprets robot-specific non-navigation actions.
+It validates and interprets robot-specific non-navigation actions and logs the recognised actions.
 
-Current local actions are software-level behaviour-interface actions. This node does **not** directly move the Create3.
+These robot-side nodes provide a software interface for future robot-specific behaviours. The Coordinator handles the main visitor-task progression through the Navigation and UX interfaces. Local actions are not currently connected to physical movement or visitor-facing behaviour.
 
 ---
 
@@ -380,7 +382,7 @@ Example:
 ```json
 {
   "command": "start_route",
-  "destination": "ELEVATOR_1"
+  "destination": "ELEVATOR_2"
 }
 ```
 
@@ -423,7 +425,7 @@ Messages use `std_msgs/msg/String` containing JSON.
 {
   "robot_name": "jarvis",
   "navigation_event": "arrived_at_transfer_point",
-  "destination": "ELEVATOR_1"
+  "destination": "ELEVATOR_2"
 }
 ```
 
@@ -433,9 +435,11 @@ Messages use `std_msgs/msg/String` containing JSON.
 {
   "robot_name": "gem",
   "navigation_event": "arrived_at_receiving_point",
-  "destination": "ELEVATOR_1"
+  "destination": "LEVEL2_ELEVATOR"
 }
 ```
+
+In the supplied Navigation bridge, Gem's receiving-point readiness can be reported with the `report_receiving_ready` command after Gem has been placed at its Level 2 receiving position. This publishes `arrived_at_receiving_point` with `LEVEL2_ELEVATOR` when the bridge is running in real-robot mode. Check the deployed Navigation version if this interface changes.
 
 ### Gem reaches final destination
 
@@ -453,7 +457,7 @@ Messages use `std_msgs/msg/String` containing JSON.
 {
   "robot_name": "jarvis",
   "navigation_event": "route_failed",
-  "destination": "ELEVATOR_1",
+  "destination": "ELEVATOR_2",
   "reason": "navigation failure reason"
 }
 ```
@@ -475,7 +479,7 @@ Communication does not automatically retry a failed or aborted route. The task e
 
 # Communication ↔ UX Interface
 
-The intended external UX interface is HTTP through `ux_api_adapter.py`.
+The external UX interface is HTTP through `ux_api_adapter.py`.
 
 ## Start visitor task
 
@@ -620,7 +624,7 @@ source install/setup.bash
 
 # Runtime Distribution
 
-The intended runtime arrangement is:
+The tested runtime arrangement is:
 
 ```text
 Coordinator Pi
@@ -688,9 +692,9 @@ Communication provides state and task interfaces but does not control how these 
 
 ---
 
-# Current Integration Status
+# Completed Integration and Testing
 
-The Communication subsystem has been independently tested through the complete software-level visitor sequence using the Coordinator, Jarvis and Gem Raspberry Pis.
+The Communication subsystem was tested through the complete software-level visitor sequence using the Coordinator, Jarvis and Gem Raspberry Pis. It was subsequently integrated with the real UX, Navigation and physical Jarvis and Gem prototypes.
 
 Verified behaviour includes:
 
@@ -711,7 +715,9 @@ Verified behaviour includes:
 * reusable second visitor sessions; and
 * launch-based operation across all three Raspberry Pis.
 
-The remaining project-level work is primarily **joint integration with the real Navigation and UX implementations and physical end-to-end testing**.
+The integrated prototype was used for the project's 15-participant user study. Fourteen participants completed the full physical route. This supports the final two-robot demonstration, but it does not establish reliability for broader or continuous real-world deployment.
+
+The main tested workflow used one predefined destination (`DIGITAL_LIBRARY`) and one active visitor task at a time. The full system also required manual robot positioning between study runs.
 
 ---
 
@@ -723,7 +729,7 @@ The current `NavigationStatusAdapter` republishes its latest converted Communica
 
 Therefore, the StatusMonitor's freshness check currently represents freshness of the **Communication-side status stream**, rather than independently proving that the original physical Navigation source has produced a new event recently.
 
-If stronger physical-source liveness checking is required, this should be implemented/negotiated during final Navigation integration.
+A future version could use a Navigation heartbeat, source timestamp or another liveness check to determine whether the original Navigation process is still active.
 
 ### Robot local actions
 
@@ -731,7 +737,7 @@ If stronger physical-source liveness checking is required, this should be implem
 
 It deliberately does not publish movement commands.
 
-Any physical or visual behaviour triggered by actions such as `prepare_handover` or `prepare_receive` can be connected by the appropriate Navigation/UX behaviour layer during final integration.
+Future development could connect actions such as `prepare_handover` or `prepare_receive` to robot-specific movement, screen or other visitor-facing behaviours through the appropriate Navigation/UX components.
 
 ### IP addresses
 
@@ -741,9 +747,9 @@ ROS 2 interfaces and machine roles should be used as the stable integration cont
 
 ---
 
-# Final Integration Target
+# Integrated Visitor Workflow
 
-The final integrated MediBot system should allow the following without manually publishing ROS test messages:
+The final integrated prototype was tested using the following visitor journey. Navigation readiness reporting and physical reset/preparation still require appropriate setup for each run:
 
 ```text
 Visitor selects destination in UX
@@ -769,4 +775,4 @@ Communication marks visitor task complete
 UX presents completion
 ```
 
-The Communication component has been designed so that Navigation and UX can be integrated through these defined interfaces without duplicating their internal logic.
+The Communication component keeps the UX and Navigation interfaces separate from the high-level coordination logic. See [Project Overview](PROJECT_OVERVIEW.md) for the main prototype limitations and possible future work.
