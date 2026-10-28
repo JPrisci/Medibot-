@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import threading
@@ -23,13 +24,20 @@ class NavigationBridge(Node):
         super().__init__(f"{robot_name}_navigation_bridge")
 
         self.robot_name = robot_name.lower().strip()
-        self.namespace = f"/{self.robot_name}"
+        profile_path = (
+            Path(__file__).resolve().parent.parent
+            / "config" / "robots" / f"{self.robot_name}.json"
+        )
+        self.profile = json.loads(profile_path.read_text(encoding="utf-8"))
+        self.namespace = self.profile["namespace"]
 
         self.run_robot = run_robot
         self.publish_dry_run_events = publish_dry_run_events
 
         self.route_active = False
         self.current_process = None
+        self._readiness_reported_for_task = False
+        self._task_ready_timer = None
 
         repo_root = Path(__file__).resolve().parent.parent
         self.runner_path = repo_root / "scripts" / "gblock_route_runner.py"
@@ -42,6 +50,13 @@ class NavigationBridge(Node):
             String,
             self.command_topic,
             self.receive_navigation_command,
+            10,
+        )
+
+        self.ux_state_subscription = self.create_subscription(
+            String,
+            "/medibot/ux_state",
+            self.receive_ux_state,
             10,
         )
 
@@ -71,6 +86,84 @@ class NavigationBridge(Node):
             self.get_logger().warn(
                 "Dry-run mode enabled. The robot will NOT move."
             )
+
+        # Automatically confirm Gem's staged receiving position once
+        # DDS has had time to discover the Coordinator.
+        self._startup_ready_timer = None
+        if self.robot_name == "gem" and self.run_robot:
+            self.get_logger().info(
+                "Gem receiving readiness will be reported automatically "
+                "in 5 seconds."
+            )
+            self._startup_ready_timer = self.create_timer(
+                5.0,
+                self._report_startup_receiving_ready,
+            )
+
+    def _report_startup_receiving_ready(self):
+        """Report Gem's receiving position once after bridge startup."""
+        timer = self._startup_ready_timer
+        if timer is None:
+            return
+
+        timer.cancel()
+        self._startup_ready_timer = None
+
+        self.get_logger().info(
+            "Automatically reporting Gem ready at LEVEL2_ELEVATOR."
+        )
+        self.handle_receiving_ready()
+
+    # GEM_RESET_READY_V1
+    def receive_ux_state(self, msg):
+        if self.robot_name != "gem" or not self.run_robot:
+            return
+
+        try:
+            state_data = json.loads(msg.data)
+        except json.JSONDecodeError:
+            return
+
+        if not isinstance(state_data, dict):
+            return
+
+        stage = str(state_data.get("current_stage", "")).strip()
+        destination = str(state_data.get("destination", "")).strip()
+
+        if stage == "waiting_for_destination" or not destination:
+            self._readiness_reported_for_task = False
+            return
+
+        if self._readiness_reported_for_task or self.route_active:
+            return
+
+        self._readiness_reported_for_task = True
+        self.get_logger().info(
+            "New task detected; Gem readiness will be reported "
+            "automatically at LEVEL2_ELEVATOR."
+        )
+        self._task_ready_timer = self.create_timer(
+            1.0,
+            self._report_task_receiving_ready,
+        )
+
+    def _report_task_receiving_ready(self):
+        timer = self._task_ready_timer
+        if timer is None:
+            return
+
+        timer.cancel()
+        self._task_ready_timer = None
+
+        if self.route_active:
+            self._readiness_reported_for_task = False
+            return
+
+        self.get_logger().info(
+            "Automatically reporting Gem ready at LEVEL2_ELEVATOR "
+            "for the current task."
+        )
+        self.handle_receiving_ready()
 
     def receive_navigation_command(self, msg):
         try:
@@ -185,13 +278,13 @@ class NavigationBridge(Node):
             destination,
         ]
 
-        # Jarvis uses the map's normal IOT_LAB default.
-        # Gem is physically placed at the Level 2 receiving point.
-        if self.robot_name == "gem":
-            command.extend([
-                "--start-node",
-                "LEVEL2_ELEVATOR",
-            ])
+        repo_root = Path(__file__).resolve().parent.parent
+        command.extend([
+            "--start-node",
+            self.profile["start_node"],
+            "--map-file",
+            str(repo_root / self.profile["map_file"]),
+        ])
 
         if self.run_robot:
             command.append("--run")
@@ -202,7 +295,17 @@ class NavigationBridge(Node):
         )
 
         try:
-            self.current_process = subprocess.Popen(command)
+            runner_env = os.environ.copy()
+
+            runner_env["CYCLONEDDS_URI"] = self.profile["runner_dds_xml"]
+            self.get_logger().info(
+                f"{self.robot_name} route runner will use USB DDS."
+            )
+
+            self.current_process = subprocess.Popen(
+                command,
+                env=runner_env,
+            )
             return_code = self.current_process.wait()
 
         except Exception as exc:
