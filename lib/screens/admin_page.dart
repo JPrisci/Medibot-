@@ -25,7 +25,7 @@ class _AdminPageState extends State<AdminPage> {
     _passwordController.dispose();
     super.dispose();
   }
-
+  // Password checking for admin.
   void _checkPassword() {
     if (_passwordController.text == _adminPassword) {
       setState(() {
@@ -36,7 +36,7 @@ class _AdminPageState extends State<AdminPage> {
       setState(() => _passwordError = 'Incorrect password');
     }
   }
-
+  // Exports all sessions to csv file for app lifetime.
   Future<void> _exportAllSessions() async {
     setState(() {
       _exporting = true;
@@ -106,9 +106,8 @@ class _AdminPageState extends State<AdminPage> {
       ],
     );
   }
-
+  // Clears all data that is saved to CSV's, refreshes session.
   Future<void> _resetAllData() async {
-    // Confirm first — this is destructive and can't be undone.
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(

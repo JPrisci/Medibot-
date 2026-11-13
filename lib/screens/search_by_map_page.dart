@@ -8,17 +8,17 @@ import 'package:http/http.dart' as http;
 import '../session_tracker.dart';
 import 'session_summary_page.dart';
 
-/// Displays the floor plans used in the user-testing prototype.
+/// Displays the floor plans.
 class SearchByMapPage extends StatefulWidget {
   const SearchByMapPage({super.key, this.selectedDepartment});
 
-  // Kept while the department-search flow remains in the prototype.
+  // Can only select one in this prototype.
   final String? selectedDepartment;
 
   @override
   State<SearchByMapPage> createState() => _SearchByMapPageState();
 }
-
+// Hardcoded, only one route, could be made dynamic in future.
 class _SearchByMapPageState extends State<SearchByMapPage> {
   static const _primaryBlue = Color(0xFF1565C0);
   static const _destination = 'DIGITAL_LIBRARY';
@@ -41,7 +41,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     // The enabled department option starts the same predefined route.
     _showRoute = widget.selectedDepartment != null;
   }
-
+  // Choose floor.
   void _selectFloor(String floor) {
     if (_retiredFloors.contains(floor)) return;
 
@@ -50,13 +50,13 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       _selectedFloor = floor;
     });
   }
-
+  // Remove the selected route from map and selection.
   void _cancelRoute() {
     SessionTracker.instance.recordClick('Cancel route');
     SessionTracker.instance.recordRouteCancellation();
     setState(() => _showRoute = false);
   }
-
+  // Toggle route visibility.
   void _toggleDestinationRoute() {
     if (_showRoute) {
       _cancelRoute();
@@ -65,7 +65,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       setState(() => _showRoute = true);
     }
   }
-
+  // Confirm the booking option.
   Future<void> _confirmBooking() async {
     if (!_showRoute) return;
     final userId = SessionTracker.instance.userId ?? 'Guest';
@@ -133,7 +133,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
     SessionTracker.instance.markBookingConfirmed();
     _finishSession();
   }
-
+  // Send request and get response.
   Future<void> _publishRouteRequest(String userId) async {
     final response = await http
         .post(
@@ -146,7 +146,7 @@ class _SearchByMapPageState extends State<SearchByMapPage> {
       throw _RouteApiException('API returned HTTP ${response.statusCode}');
     }
   }
-
+  // Session end
   void _finishSession() {
     SessionTracker.instance.recordClick('Session complete');
     Navigator.of(context).pushReplacement(

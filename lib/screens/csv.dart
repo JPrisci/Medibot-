@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:file_saver/file_saver.dart';
 
 class Csv {
-  /// Builds a CSV from multiple session records and saves it to the device.
+  /// Builds a CSV from multiple session records and saves it to device.
   static Future<void> exportRecords({
     required List<Map<String, dynamic>> records,
     String fileName = 'session_summary',
@@ -27,7 +27,7 @@ class Csv {
       mimeType: MimeType.csv,
     );
   }
-
+  // Cleaning
   static String _escape(dynamic value) {
     final str = value.toString();
     if (str.contains(',') || str.contains('"') || str.contains('\n')) {

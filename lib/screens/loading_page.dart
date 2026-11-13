@@ -13,7 +13,7 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  // 1 = intro, 2 = main app
+  // 1 = intro, 2 = home
   int _screenStage = 1;
   final _nameController = TextEditingController();
 
@@ -28,7 +28,7 @@ class _LoadingPageState extends State<LoadingPage> {
     final name = _nameController.text.trim();
     if (name.isEmpty) return;
 
-    // Starts session timer on start, moves to app.
+    // Starts session timer on start, moves to home.
     SessionTracker.instance.userId = name;
     SessionTracker.instance.recordClick('Start');
     SessionTracker.instance.start();

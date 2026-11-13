@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SessionRecordStore {
   static const _key = 'session_records';
 
-  /// Appends one session's metrics to persistent storage.
+  /// Appends metrics.
   static Future<void> addRecord(Map<String, dynamic> record) async {
     final prefs = await SharedPreferences.getInstance();
     final existing = prefs.getStringList(_key) ?? <String>[];
@@ -13,7 +13,7 @@ class SessionRecordStore {
     await prefs.setStringList(_key, existing);
   }
 
-  /// Updates a previously saved session while retaining records from other sessions.
+  /// Updates and adds record.
   static Future<void> updateRecord(
     int sessionId,
     Map<String, dynamic> updates,
@@ -30,7 +30,7 @@ class SessionRecordStore {
     }
   }
 
-  /// Returns all stored records, oldest first.
+  /// Returns all stored records in order (date)
   static Future<List<Map<String, dynamic>>> getAllRecords() async {
     final prefs = await SharedPreferences.getInstance();
     final existing = prefs.getStringList(_key) ?? <String>[];
@@ -39,7 +39,7 @@ class SessionRecordStore {
         .toList();
   }
 
-  /// Call after a successful export if you want to start fresh.
+
   static Future<void> clear() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_key);
